@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/nav.css">
     <link rel="stylesheet" href="CSS/footer.css">
-    <link rel="stylesheet" href="CSS/caarte.css">
+    <link rel="stylesheet" href="CSS/cart.css">
+    <link rel="stylesheet" href="CSS/squad.css">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/1234567890.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
 </head>
 <body>
+
+    <!-- ---------navbar----------- -->
     <nav class="navbar">
         <div class="logo">
           <img src="img/logofc-removebg-preview.png" alt="FC25 Logo">
@@ -32,7 +35,11 @@
 
 
 
-      <section >
+
+
+      <section  style="margin-top: 70px; margin-bottom: 70px; margin-left: 15px;" class="lwalid" >
+
+        <div>
        
         <svg xmlns="http://www.w3.org/2000/svg"  width="120vh" viewBox="0 0 904 650" fill="none">
            
@@ -72,38 +79,114 @@
 
             <!-- Formation 4-3-3 -->
             <!-- Attaquants -->
-            <image href="img/CARTAXXX-removebg-preview.png" x="432" y="80" width="90" height="115"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="332" y="130" width="90" height="115"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="532" y="130" width="90" height="115"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="660" y="80"   width="150" height="175"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="380" y="5"    width="150" height="175"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="95" y="80"   width="150" height="175"/>
             
-            <!-- Milieux -->
-            <image href="img/CARTAXXX-removebg-preview.png" x="432" y="230" width="90" height="115"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="332" y="280" width="90" height="115"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="532" y="280" width="90" height="115"/>
+            <!-- Milieu -->
+            <image href="img/CARTAXXX-removebg-preview.png" x="540" y="180"   width="150" height="175"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="380" y="200"   width="150" height="175"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="220" y="180"   width="150" height="175"/>
             
             <!-- Défenseurs -->
-            <image href="img/CARTAXXX-removebg-preview.png" x="232" y="380" width="90" height="115"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="362" y="380" width="90" height="115"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="502" y="380" width="90" height="115"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="632" y="380" width="90" height="115"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="680" y="300"  width="150" height="175"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="480" y="330"   width="150" height="175"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="280" y="330"  width="150" height="175"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="60"  y="300"  width="150" height="175"/>
             
             <!-- Gardien -->
-            <image href="img/CARTAXXX-removebg-preview.png" x="400" y="510" width="120" height="145"/>
+            <image href="img/CARTAXXX-removebg-preview.png" x="380" y="480"  width="150" height="175"/>
 
             <!-- Icônes "+" sur chaque carte -->
-            <g class="add-icons" fill="none" stroke="#00ff00" stroke-width="2">
-                <!-- Ajoutez un "+" sur chaque carte -->
-                <!-- Exemple pour une carte : -->
-                <circle class="add-button" cx="452" cy="100" r="8" fill="#1a1a1a" stroke="#00ff00"/>
+            <!-- <g class="add-icons" fill="none" stroke="#00ff00" stroke-width="2">
+                Ajoutez un "+" sur chaque carte
+                <!-- <circle class="add-button" cx="452" cy="100" r="8" fill="#1a1a1a" stroke="#00ff00"/>
                 <line x1="448" y1="100" x2="456" y2="100" stroke="#00ff00"/>
                 <line x1="452" y1="96" x2="452" y2="104" stroke="#00ff00"/>
-                <!-- Répétez pour chaque carte -->
-            </g>
+                Répétez pour chaque carte -->
+            <!-- </g> -->
         </svg>
+    </div>
+
+
+    <div class="form-container">
+        <form class="player-form">
+            
+            <div class="input-group">
+
+                <select id="formation">
+                    <option value="4-3-3">4-3-3</option>
+                    <option value="4-4-2">4-4-2</option>
+                    <option value="3-5-2">3-5-2</option>
+                </select>
+              
+            </div>
+
+            <div class="input-group">
+                <label for="playerName">Nom du joueur</label>
+                <input type="text" id="playerName" required>
+            </div>
+    
+            <div class="input-group">
+                <label for="playerImage">Image du joueur</label>
+                <input type="file" id="playerImage" accept="image/*" required>
+            </div>
+    
+            <div class="input-group">
+                <label for="nationality">Nationalité</label>
+                <select id="nationality" required>
+                    <option value="">Sélectionner une nationalité</option>
+                    <option value="MA">Maroc</option>
+                    <option value="FR">France</option>
+                    <option value="ES">Espagne</option>
+                    <option value="BR">Brésil</option>
+                    <option value="AR">Argentine</option>
+                </select>
+            </div>
+
+    
+            
+            <div class="input-group">
+                <label for="club">Club</label>
+                <select id="club" required>
+                    <option value="">Sélectionner un club</option>
+                    <option value="RCA">Raja Club Athletic</option>
+                    <option value="WAC">Wydad Athletic Club</option>
+                    <option value="RSB">Renaissance Sportive de Berkane</option>
+                    <option value="FUS">FUS de Rabat</option>
+                </select>
+            </div>
+    
+            <div class="input-group">
+                <label for="rating">Note globale</label>
+                <input type="number" id="rating" min="1" max="99" required>
+            </div>
+    
+            <div class="input-group">
+                <label for="position">Position</label>
+                <select id="position" required>
+                    <option value="">Sélectionner une position</option>
+                    <option value="GK">Gardien de but</option>
+                    <option value="DEF">Défenseur</option>
+                    <option value="MID">Milieu</option>
+                    <option value="ATT">Attaquant</option>
+                </select>
+            </div>
+    
+            <button type="submit" class="submit-btn">Ajouter le joueur</button>
+        </form>
+    </div>
+        
+    
       </section>
 
 
 
+
+
+
+
+<!-- -------------------------------footer------------ -->
 <footer class="footer">
 
     <div class="slider" style="
@@ -156,5 +239,6 @@
     </div>
 </footer>
 <script src="JS/nav.js"></script>
+<script src="JS/position.js"></script>
 </body>
 </html>

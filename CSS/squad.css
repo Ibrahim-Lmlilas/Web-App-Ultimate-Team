@@ -1,0 +1,81 @@
+.lwalid{
+    display: flex;
+
+  }
+  
+  .form-container {
+    height: 80%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.player-form {
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #2a2a2a;
+    color: #fff;
+    font-size: 14px;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #1aa870;
+}
+
+
+
+.input-group input[type="file"] {
+    padding: 8px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #1aa870;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #45a049;
+}
+
+/* Style pour les options des selects */
+select option {
+    background: #2a2a2a;
+    color: #fff;
+}
+
+/* Retirer les flèches du input number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
