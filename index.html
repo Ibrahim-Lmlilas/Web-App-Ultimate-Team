@@ -57,29 +57,11 @@
             <use href="#futbin-logo" y="613" x="18"/>
             <use href="#futbin-logo" y="613" x="802"/>
             
-            <!-- Banc de remplaçants (première ligne)
-            <g class="subs-row-1">
-                <image href="img/CARTAXXX-removebg-preview.png" x="150" y="580" width="40" height="55"/>
-                <image href="img/black-card.png" x="200" y="580" width="40" height="55"/>
-                <image href="img/black-card.png" x="250" y="580" width="40" height="55"/>
-                <image href="img/black-card.png" x="300" y="580" width="40" height="55"/>
-                <image href="img/black-card.png" x="350" y="580" width="40" height="55"/>
-                <image href="img/black-card.png" x="400" y="580" width="40" height="55"/>
-                <image href="img/black-card.png" x="450" y="580" width="40" height="55"/>
-            </g>
-
-            Banc de remplaçants (deuxième ligne) -->
-            <!-- <g class="subs-row-2">
-                <image href="img/black-card.png" x="150" y="540" width="40" height="55"/>
-                <image href="img/black-card.png" x="200" y="540" width="40" height="55"/>
-                <image href="img/black-card.png" x="250" y="540" width="40" height="55"/>
-                <image href="img/black-card.png" x="300" y="540" width="40" height="55"/>
-                <image href="img/black-card.png" x="350" y="540" width="40" height="55"/>
-            </g> -->
+           
 
             <!-- Formation 4-3-3 -->
             <!-- Attaquants -->
-            <image href="img/CARTAXXX-removebg-preview.png" x="660" y="80"   width="150" height="175"/>
+            <image id="position-1" href="img/CARTAXXX-removebg-preview.png" x="660" y="80"   width="150" height="175"/>
             <image href="img/CARTAXXX-removebg-preview.png" x="380" y="5"    width="150" height="175"/>
             <image href="img/CARTAXXX-removebg-preview.png" x="95" y="80"   width="150" height="175"/>
             
@@ -99,7 +81,7 @@
 
             <!-- Icônes "+" sur chaque carte -->
             <!-- <g class="add-icons" fill="none" stroke="#00ff00" stroke-width="2">
-                Ajoutez un "+" sur chaque carte
+                Ajoutez un "+" sur chaque carte -->
                 <!-- <circle class="add-button" cx="452" cy="100" r="8" fill="#1a1a1a" stroke="#00ff00"/>
                 <line x1="448" y1="100" x2="456" y2="100" stroke="#00ff00"/>
                 <line x1="452" y1="96" x2="452" y2="104" stroke="#00ff00"/>
@@ -115,7 +97,7 @@
             <div class="input-group">
 
                 <select id="formation">
-                    <option value="4-3-3">4-3-3</option>
+                    <option value="4-3-3">4-5-1</option>
                     <option value="4-4-2">4-4-2</option>
                     <option value="3-5-2">3-5-2</option>
                 </select>
@@ -181,6 +163,26 @@
       </section>
 
 
+             <section class="substitutes">
+                <div class="subs-container">
+                    <div class="subs-row">
+                        <!-- Les cartes seront ajoutées ici dynamiquement -->
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+
+
+<!-- Ajouter cette section après le formulaire -->
+<section class="created-cards">
+    <div class="cards-container">
+        <!-- Les nouvelles cartes seront ajoutées ici -->
+    </div>
+</section>
 
 
 
