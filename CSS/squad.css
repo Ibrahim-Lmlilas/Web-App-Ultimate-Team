@@ -244,3 +244,23 @@ input[type="number"]::-webkit-outer-spin-button {
     z-index: 1001;
 }
 
+
+
+#imageInputType {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#urlInputContainer input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#fileInputContainer, #urlInputContainer {
+    margin-top: 5px;
+}

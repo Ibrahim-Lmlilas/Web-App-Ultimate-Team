@@ -542,10 +542,11 @@
         // After the playersData declaration, add this to save to localStorage
         localStorage.setItem('players', JSON.stringify(playersData.players));
 
-        // Replace the existing forEach loop with this:
-        const savedPlayers = JSON.parse(localStorage.getItem('players')) || playersData.players;
-
-        savedPlayers.forEach(player => {
+        // Récupérer tous les joueurs (existants + nouveaux) du localStorage
+        const allPlayers = JSON.parse(localStorage.getItem('players')) || playersData.players;
+        
+        // Remplacer playersData.players.forEach par allPlayers.forEach
+        allPlayers.forEach(player => {
             const card = document.createElement('div');
             card.className = 'card';
             

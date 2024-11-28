@@ -61,23 +61,23 @@
 
             <!-- Formation 4-3-3 -->
             <!-- Attaquants -->
-            <image id="position-1" href="img/CARTAXXX-removebg-preview.png" x="660" y="80"   width="150" height="175"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="380" y="5"    width="150" height="175"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="95" y="80"   width="150" height="175"/>
+            <image id="position-1" href="img/badge_gold.webp" x="660" y="80"   width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="380" y="5"    width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="95" y="80"   width="150" height="175"/>
             
             <!-- Milieu -->
-            <image href="img/CARTAXXX-removebg-preview.png" x="540" y="180"   width="150" height="175"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="380" y="200"   width="150" height="175"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="220" y="180"   width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="540" y="180"   width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="380" y="200"   width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="220" y="180"   width="150" height="175"/>
             
             <!-- Défenseurs -->
-            <image href="img/CARTAXXX-removebg-preview.png" x="680" y="300"  width="150" height="175"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="480" y="330"   width="150" height="175"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="280" y="330"  width="150" height="175"/>
-            <image href="img/CARTAXXX-removebg-preview.png" x="60"  y="300"  width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="680" y="300"  width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="480" y="330"   width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="280" y="330"  width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="60"  y="300"  width="150" height="175"/>
             
             <!-- Gardien -->
-            <image href="img/CARTAXXX-removebg-preview.png" x="380" y="480"  width="150" height="175"/>
+            <image href="img/badge_gold.webp" x="380" y="480"  width="150" height="175"/>
 
             <!-- Icônes "+" sur chaque carte -->
             <!-- <g class="add-icons" fill="none" stroke="#00ff00" stroke-width="2">
@@ -111,7 +111,18 @@
     
             <div class="input-group">
                 <label for="playerImage">Image du joueur</label>
-                <input type="file" id="playerImage" accept="image/*" required>
+                <select id="imageInputType">
+                    <option value="file">Télécharger une image</option>
+                    <option value="url">Entrer une URL</option>
+                </select>
+                
+                <div id="fileInputContainer">
+                    <input type="file" id="playerImage" accept="image/*">
+                </div>
+                
+                <div id="urlInputContainer" style="display: none;">
+                    <input type="url" id="playerImageUrl" placeholder="Entrez l'URL de l'image">
+                </div>
             </div>
     
             <div class="input-group">

@@ -692,101 +692,117 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-});
 
-document.querySelector('.player-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+    const imageInputType = document.getElementById('imageInputType');
+    const fileInputContainer = document.getElementById('fileInputContainer');
+    const urlInputContainer = document.getElementById('urlInputContainer');
 
-    // Récupérer les valeurs du formulaire
-    const playerName = document.getElementById('playerName').value;
-    const nationality = document.getElementById('nationality').value;
-    const club = document.getElementById('club').value;
-    const rating = document.getElementById('rating').value;
-    const position = document.getElementById('position').value;
-    
-    // Gérer l'image du joueur
-    const playerImageFile = document.getElementById('playerImage').files[0];
-    const playerImageURL = playerImageFile ? URL.createObjectURL(playerImageFile) : '';
+    imageInputType.addEventListener('change', function() {
+        if (this.value === 'file') {
+            fileInputContainer.style.display = 'block';
+            urlInputContainer.style.display = 'none';
+        } else {
+            fileInputContainer.style.display = 'none';
+            urlInputContainer.style.display = 'block';
+        }
+    });
 
-    // Créer la carte
-    const card = document.createElement('div');
-    card.className = 'card';
-    
-    let statsHTML = '';
-    if (player.position === 'GK') {
-        statsHTML = `
-            <div class="stat">
-                <span>${player.diving}</span>
+    // Modifier la partie du code qui gère la soumission du formulaire
+    document.querySelector('.player-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Créer un nouvel objet joueur avec les données du formulaire
+        const newPlayer = {
+            name: document.getElementById('playerName').value,
+            position: document.getElementById('position').value,
+            nationality: document.getElementById('nationality').value,
+            flag: `https://cdn.sofifa.net/flags/${document.getElementById('nationality').value.toLowerCase()}.png`,
+            club: document.getElementById('club').value,
+            logo: `clubs/${document.getElementById('club').value}.png`,
+            rating: document.getElementById('rating').value,
+        };
+
+        // Ajouter les stats en fonction de la position
+        if (newPlayer.position === 'GK') {
+            newPlayer.diving = document.getElementById('diving').value;
+            newPlayer.handling = document.getElementById('handling').value;
+            newPlayer.kicking = document.getElementById('kicking').value;
+            newPlayer.reflexes = document.getElementById('reflexes').value;
+            newPlayer.speed = document.getElementById('speed').value;
+            newPlayer.positioning = document.getElementById('positioning').value;
+        } else {
+            newPlayer.pace = document.getElementById('pace').value;
+            newPlayer.shooting = document.getElementById('shooting').value;
+            newPlayer.passing = document.getElementById('passing').value;
+            newPlayer.dribbling = document.getElementById('dribbling').value;
+            newPlayer.defending = document.getElementById('defending').value;
+            newPlayer.physical = document.getElementById('physical').value;
+        }
+
+        // Gérer l'image du joueur
+        if (document.getElementById('imageInputType').value === 'file') {
+            const file = document.getElementById('playerImage').files[0];
+            newPlayer.photo = URL.createObjectURL(file);
+        } else {
+            newPlayer.photo = document.getElementById('playerImageUrl').value;
+        }
+
+        // Ajouter le nouveau joueur au tableau existant
+        playersData.players.push(newPlayer);
+
+        // Sauvegarder dans localStorage
+        localStorage.setItem('players', JSON.stringify(playersData.players));
+
+        // Créer et ajouter la nouvelle carte
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        let statsHTML = '';
+        if (newPlayer.position === 'GK') {
+            statsHTML = `
+                <div class="stat"><span>${newPlayer.diving}</span></div>
+                <div class="stat"><span>${newPlayer.handling}</span></div>
+                <div class="stat"><span>${newPlayer.kicking}</span></div>
+                <div class="stat"><span>${newPlayer.reflexes}</span></div>
+                <div class="stat"><span>${newPlayer.speed}</span></div>
+                <div class="stat"><span>${newPlayer.positioning}</span></div>
+            `;
+        } else {
+            statsHTML = `
+                <div class="stat"><span>${newPlayer.pace}</span></div>
+                <div class="stat"><span>${newPlayer.shooting}</span></div>
+                <div class="stat"><span>${newPlayer.passing}</span></div>
+                <div class="stat"><span>${newPlayer.dribbling}</span></div>
+                <div class="stat"><span>${newPlayer.defending}</span></div>
+                <div class="stat"><span>${newPlayer.physical}</span></div>
+            `;
+        }
+
+        card.innerHTML = `
+            <div class="top-section">
+                <div class="rating-position">
+                    <div class="rating">${newPlayer.rating}</div>
+                    <div class="position">${newPlayer.position}</div>
+                </div>
+                <div class="nationality">
+                    <img src="${newPlayer.flag}" class="flag" alt="Flag">
+                    <img src="${newPlayer.logo}" class="club-logo" alt="Club">
+                </div>
             </div>
-            <div class="stat">
-                <span>${player.handling}</span>
-            </div>
-            <div class="stat">
-                <span>${player.kicking}</span>
-            </div>
-            <div class="stat">
-                <span>${player.reflexes}</span>
-            </div>
-            <div class="stat">
-                <span>${player.speed}</span>
-            </div>
-            <div class="stat">
-                <span>${player.positioning}</span>
+            <img src="${newPlayer.photo}" class="player-img" alt="${newPlayer.name}">
+            <div class="player-name">${newPlayer.name}</div>
+            <div class="statt"><p>PAC  SHO PAS DRI DEF PHY</p></div>
+            <div class="stats">
+                ${statsHTML}
             </div>
         `;
-    } else {
-        statsHTML = `
-            <div class="stat">
-                <span>${player.pace}</span>
-            </div>
-            <div class="stat">
-                <span>${player.dribbling}</span>
-            </div>
-            <div class="stat">
-                <span>${player.shooting}</span>
-            </div>
-            <div class="stat">
-                <span>${player.defending}</span>
-            </div>
-            <div class="stat">
-                <span>${player.passing}</span>
-            </div>
-            <div class="stat">
-                <span>${player.physical}</span>
-            </div>
-        `;
-    }
 
-    card.innerHTML = `
-        <div class="rating-position">
-            <div class="rating">${rating}</div>
-            <div class="position">${position}</div>
-        </div>
-        <img src="${playerImageURL}" class="player-img" alt="${playerName}">
-        <div class="player-name">${playerName}</div>
-        <div class="nationality">
-            <img src="flags/${nationality}.png" class="flag" alt="Flag">
-            <img src="clubs/${club}.png" class="club-logo" alt="Club">
-        </div>
-        <div class="stats">
-            ${statsHTML}
-        </div>
-    `;
+        // Ajouter la carte à la page PLyres.html
+        document.body.appendChild(card);
 
-    // Remplacer la première carte vide dans la section des substituts
-    const subsRow = document.querySelector('.subs-row');
-    const emptyCard = subsRow.querySelector('img.sub-card');
-    
-    if (emptyCard) {
-        // Remplacer la carte vide par la nouvelle carte
-        emptyCard.parentNode.replaceChild(card, emptyCard);
-    } else {
-        // Si toutes les cartes sont remplies, ajouter à la fin
-        subsRow.appendChild(card);
-    }
-
-    // Réinitialiser le formulaire
-    this.reset();
+        // Réinitialiser le formulaire
+        this.reset();
+    });
 });
 
 // Fonction pour créer la modal de sélection de joueur

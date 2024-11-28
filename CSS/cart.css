@@ -1,5 +1,3 @@
-
-
 image {
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -147,7 +145,6 @@ image:hover {
     background-image: url('../img/carta-removebg-preview.png');
     background-size: cover;
     background-position: center;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
     padding: 15px;
 }
 
@@ -302,4 +299,35 @@ svg image {
 
 svg image:hover {
     opacity: 0.8;
+}
+
+.pitch-card {
+    background-image: url('../img/carta-removebg-preview.png');
+    background-size: cover;
+    background-position: center;
+    width: 200px;
+    height: 225px;
+    position: absolute;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.pitch-card * {
+    pointer-events: none;
+}
+
+/* Style l cards f terrain */
+.card {
+    width: 200px;
+    height: 225px;
+    position: relative;
+    background-image: url('../img/carta-removebg-preview.png');
+    background-size: cover;
+    background-position: center;
+    padding: 15px;
+}
+
+/* Khass ga3 l3anasir ikono pointer-events: none */
+.card * {
+    pointer-events: none;
 }
