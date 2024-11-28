@@ -77,3 +77,170 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.stats-grid div {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-grid input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.stats-grid label {
+    font-size: 0.9em;
+    margin-bottom: 3px;
+}
+
+.players-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #1a1818;
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.players-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 100px;
+    padding: 30px;
+    justify-content: center;
+}
+
+.player-card {
+    width: 200px;
+    height: 275px;
+    position: relative;
+    background-image: url('../img/badge_gold.webp');
+    background-size: cover;
+    background-position: center;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.player-card:hover {
+    transform: scale(1.05);
+}
+
+.rating-position {
+    position: relative;
+    right: 7px;
+    top: 40px;
+}
+
+.rating {
+    font-size: 30px;
+    font-weight: bold;
+    color: #573e08;
+}
+
+.position {
+    font-size: 15px;
+    color: #573e08;
+    position: relative;
+    bottom: 7px;
+    left: 1px;
+}
+
+.nationality {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flag {
+    position: relative;
+    top: 157px;
+    width: 30px;
+    height: 20px;
+}
+
+.club-logo {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    left: 60px;
+    top: 125px;
+
+}
+
+.player-img {
+    width: 80%;
+    height: auto;
+    position: relative;
+    bottom: 118px;
+    left: 25px;
+    display: block;
+}
+
+.player-name {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2f3104;
+    position: relative;
+    bottom: 120px;
+    text-transform: uppercase;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 0 40px;
+}
+
+.stat {
+    position: relative;
+    bottom: 148px;
+    left: -12px;
+    font-weight: bolder;
+    color: #2f3104;
+    font-size: 14px;
+}
+
+.statt {
+    position: relative;
+    bottom: 135px;
+    left: 10px;
+    padding: 0 16px;
+    color: #2f3104;
+    font-size: 12px;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1001;
+}
+

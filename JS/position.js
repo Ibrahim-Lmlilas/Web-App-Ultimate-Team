@@ -482,6 +482,9 @@ const playersData = {
       
 ;
 
+// Au début du fichier, récupérer les joueurs du localStorage
+const savedPlayers = JSON.parse(localStorage.getItem('players')) || [];
+
 document.addEventListener('DOMContentLoaded', function() {
     const formationSelect = document.getElementById('formation');
     const svg = document.querySelector('svg');
@@ -586,80 +589,107 @@ document.addEventListener('DOMContentLoaded', function() {
     positionImages.forEach(position => {
         position.style.cursor = 'pointer';
         
-        position.addEventListener('click', function(e) {
-            // Créer et afficher la modal
-            const modal = document.createElement('div');
-            modal.className = 'player-selection-modal';
-            modal.innerHTML = `
+        position.addEventListener('click', function() {
+            const playersList = document.createElement('div');
+            playersList.className = 'players-modal';
+            
+            let playersHTML = `
                 <div class="modal-content">
                     <span class="close-modal">&times;</span>
-                    <h2>Sélectionner un joueur</h2>
-                    <div class="players-grid"></div>
-                </div>
+                    <div class="players-grid">
             `;
             
-            const playersGrid = modal.querySelector('.players-grid');
-            const clickedPosition = this;
-
-            // Ajouter chaque joueur à la grille
-            playersData.players.forEach(player => {
-                const playerCard = document.createElement('div');
-                playerCard.className = 'card';
-                
+            savedPlayers.forEach(player => {
                 // Définir les stats en fonction de la position
                 let statsHTML = '';
                 if (player.position === 'GK') {
                     statsHTML = `
-                        <div class="stat">DIV <span>${player.diving}</span></div>
-                        <div class="stat">HAN <span>${player.handling}</span></div>
-                        <div class="stat">KIC <span>${player.kicking}</span></div>
-                        <div class="stat">REF <span>${player.reflexes}</span></div>
-                        <div class="stat">SPE <span>${player.speed}</span></div>
-                        <div class="stat">POS <span>${player.positioning}</span></div>
+                        <div class="stat">
+                            <span>${player.diving}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.handling}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.kicking}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.reflexes}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.speed}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.positioning}</span>
+                        </div>
                     `;
                 } else {
                     statsHTML = `
-                        <div class="stat">PAC <span>${player.pace}</span></div>
-                        <div class="stat">SHO <span>${player.shooting}</span></div>
-                        <div class="stat">PAS <span>${player.passing}</span></div>
-                        <div class="stat">DRI <span>${player.dribbling}</span></div>
-                        <div class="stat">DEF <span>${player.defending}</span></div>
-                        <div class="stat">PHY <span>${player.physical}</span></div>
+                        <div class="stat">
+                            <span>${player.pace}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.dribbling}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.shooting}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.defending}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.passing}</span>
+                        </div>
+                        <div class="stat">
+                            <span>${player.physical}</span>
+                        </div>
                     `;
                 }
 
-                playerCard.innerHTML = `
-                    <div class="rating-position">
-                        <div class="rating">${player.rating}</div>
-                        <div class="position">${player.position}</div>
-                    </div>
-                    <img src="${player.photo}" class="player-img" alt="${player.name}">
-                    <div class="player-name">${player.name}</div>
-                    <div class="nationality">
-                        <img src="${player.flag}" class="flag" alt="Flag">
-                        <img src="${player.logo}" class="club-logo" alt="Club">
-                    </div>
-                    <div class="stats">
-                        ${statsHTML}
+                playersHTML += `
+                    <div class="player-card" data-player-id="${player.name}">
+                        <div class="top-section">
+                            <div class="rating-position">
+                                <div class="rating">${player.rating}</div>
+                                <div class="position">${player.position}</div>
+                            </div>
+                            <div class="nationality">
+                                <img src="${player.flag}" class="flag" alt="Flag">
+                                <img src="${player.logo}" class="club-logo" alt="Club">
+                            </div>
+                        </div>
+                        <img src="${player.photo}" class="player-img" alt="${player.name}">
+                        <div class="player-name">${player.name}</div>
+                        <div class="statt"><p>PAC SHO PAS DRI DEF PHY</p></div>
+                        <div class="stats">
+                            ${statsHTML}
+                        </div>
                     </div>
                 `;
-
-                playerCard.style.cursor = 'pointer';
-                playerCard.addEventListener('click', function() {
-                    clickedPosition.setAttribute('href', player.photo);
-                    modal.remove();
-                });
-
-                playersGrid.appendChild(playerCard);
             });
-
-            document.body.appendChild(modal);
-
-            // Fermer la modal
-            modal.querySelector('.close-modal').onclick = () => modal.remove();
             
-            // Empêcher la propagation de l'événement
-            e.stopPropagation();
+            playersHTML += `
+                    </div>
+                </div>
+            `;
+            
+            playersList.innerHTML = playersHTML;
+            document.body.appendChild(playersList);
+            
+            // Gérer la fermeture de la modal
+            const closeBtn = playersList.querySelector('.close-modal');
+            closeBtn.onclick = function() {
+                playersList.remove();
+            };
+            
+            // Gérer la sélection d'un joueur
+            playersList.querySelectorAll('.player-card').forEach(card => {
+                card.onclick = function() {
+                    const selectedPlayer = savedPlayers.find(p => p.name === card.dataset.playerId);
+                    position.setAttribute('href', selectedPlayer.photo);
+                    playersList.remove();
+                };
+            });
         });
     });
 });

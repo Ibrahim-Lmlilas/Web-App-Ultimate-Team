@@ -155,6 +155,66 @@
                 </select>
             </div>
     
+            <div class="input-group stats-fields player-stats" style="display: none;">
+                <label>Statistiques du joueur</label>
+                <div class="stats-grid">
+                    <div>
+                        <label for="pace">PAC (Vitesse)</label>
+                        <input type="number" id="pace" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="shooting">SHO (Tir)</label>
+                        <input type="number" id="shooting" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="passing">PAS (Passe)</label>
+                        <input type="number" id="passing" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="dribbling">DRI (Dribble)</label>
+                        <input type="number" id="dribbling" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="defending">DEF (Défense)</label>
+                        <input type="number" id="defending" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="physical">PHY (Physique)</label>
+                        <input type="number" id="physical" min="1" max="99">
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group stats-fields goalkeeper-stats" style="display: none;">
+                <label>Statistiques du gardien</label>
+                <div class="stats-grid">
+                    <div>
+                        <label for="diving">DIV (Plongeon)</label>
+                        <input type="number" id="diving" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="handling">HAN (Prise de balle)</label>
+                        <input type="number" id="handling" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="kicking">KIC (Dégagement)</label>
+                        <input type="number" id="kicking" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="reflexes">REF (Réflexes)</label>
+                        <input type="number" id="reflexes" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="speed">SPE (Vitesse)</label>
+                        <input type="number" id="speed" min="1" max="99">
+                    </div>
+                    <div>
+                        <label for="positioning">POS (Placement)</label>
+                        <input type="number" id="positioning" min="1" max="99">
+                    </div>
+                </div>
+            </div>
+
             <button type="submit" class="submit-btn">Ajouter le joueur</button>
         </form>
     </div>
@@ -242,5 +302,21 @@
 </footer>
 <script src="JS/nav.js"></script>
 <script src="JS/position.js"></script>
-</body>
+<script>
+    document.getElementById('position').addEventListener('change', function() {
+        const playerStats = document.querySelector('.player-stats');
+        const goalkeeperStats = document.querySelector('.goalkeeper-stats');
+        
+        if (this.value === 'GK') {
+            playerStats.style.display = 'none';
+            goalkeeperStats.style.display = 'block';
+        } else if (this.value !== '') {
+            playerStats.style.display = 'block';
+            goalkeeperStats.style.display = 'none';
+        } else {
+            playerStats.style.display = 'none';
+            goalkeeperStats.style.display = 'none';
+        }
+    });
+    </script></body>
 </html>

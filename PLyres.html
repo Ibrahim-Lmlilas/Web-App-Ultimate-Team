@@ -17,9 +17,9 @@
 
         .card {
             width: 200px;
-            height: 225px;
+            height: 275px;
             position: relative;
-            background-image: url('img/carta-removebg-preview.png');
+            background-image: url('img/badge_gold.webp');
             background-size: cover;
             background-position: center;
             clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
@@ -29,49 +29,51 @@
       
 
         .rating-position {
-            margin-top: 2px;
-            margin-left: 36px;
-            gap: 5px;
+           position: relative;
+           left: 15px;
+           top: 45px;
+          
         }
 
         .rating {
             font-size: 30px;
             font-weight: bold;  
-            color: #2b2b2b;
+            color: #573e08;
         }
 
         .position {
             font-size: 15px;
-            color: #2b2b2b;
+            color: #573e08;
             margin-left: 5px;
         }
 
         .nationality {
             display: flex;
-            flex-direction: column;
-            margin-left: 42px;
-            margin-top: 8px;
-            gap: 10px;
+            justify-content: space-around;
         }
 
         .flag {
-            width: 20px;
-            height: 15px;
-            object-fit: cover;
+          position: relative;
+            top: 183px;
+            width: 30px;
+            height: 20px;
+            left: 20px;
         }
 
         .club-logo {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
+            width: 30px;
+            height: 30px;
+            position: relative;
+            right: 10px;
+            top: 175px;
         }
 
         .player-img {
-            width: 60%;
+            width: 80%;
             height: auto;
             position: relative;
-            bottom:  103px;
-            left: 80px;
+            bottom:  60px;
+            left: 25px;
             display: block;
         }
 
@@ -81,30 +83,35 @@
             font-weight: bold;
             color: #2f3104;
             position: relative;
-            bottom:  95px;
+            bottom:  60px;
             text-transform: uppercase;
         }
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 4px; 
-            padding: 0 25px;
+            grid-template-columns: repeat(6, 1fr);
+            padding: 0 20px;
         }
 
         .stat {
-            display: flex;
             position: relative;
-            gap: 1px;
-            bottom: 81px;
+            bottom: 85px;
             left: 5px;
+            font-weight: bolder;
             color: #2f3104;
             font-size: 15px;
         }
 
-        .stat span:first-child {
-            text-transform: uppercase;
+       
+        .statt{
+           position: relative;
+            bottom: 73px;
+            left: 5px;
+            padding: 0 16px;
+            color: #2f3104;
+            font-size: 12px;
         }
+       
     </style>
 </head>
 <body>
@@ -113,7 +120,7 @@
             
     "players": [
       {
-        "name": "Lionel Messi",
+        "name": " Messi",
         "photo": "https://cdn.sofifa.net/players/158/023/25_120.png",
         "position": "RW",
         "nationality": "Argentina",
@@ -532,7 +539,13 @@
   
         ;
 
-        playersData.players.forEach(player => {
+        // After the playersData declaration, add this to save to localStorage
+        localStorage.setItem('players', JSON.stringify(playersData.players));
+
+        // Replace the existing forEach loop with this:
+        const savedPlayers = JSON.parse(localStorage.getItem('players')) || playersData.players;
+
+        savedPlayers.forEach(player => {
             const card = document.createElement('div');
             card.className = 'card';
             
@@ -565,7 +578,7 @@
                         <span>${player.pace}</span>
                     </div>
                     <div class="stat">
-                        <span>${player.dribbling}</span>
+                        <span> ${player.dribbling}</span>
                     </div>
                     <div class="stat">
                         <span>${player.shooting}</span>
@@ -595,6 +608,7 @@
                 </div>
                 <img src="${player.photo}" class="player-img" alt="${player.name}">
                 <div class="player-name">${player.name}</div>
+                <div class="statt"><p>PAC  SHO PAS DRI DEF PHY</p></div>
                 <div class="stats">
                     ${statsHTML}
                 </div>
