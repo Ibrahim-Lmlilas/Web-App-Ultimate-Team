@@ -1,18 +1,75 @@
 .lwalid{
     display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+}
 
-  }
-  
-  .form-container {
-    height: 80%;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
+.lwalid > div:first-child {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.lwalid svg {
+    width: 90%;
+    height: auto;
+    max-height: 70vh;
+}
+
+.form-container {
+    width: 90%;
+    max-width: 450px;
+    margin: 20px auto;
+}
+
+@media screen and (min-width: 1024px) {
+    .lwalid {
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .lwalid > div:first-child {
+        flex: 1;
+        max-width: 65%;
+    }
+
+    .form-container {
+        flex: 0 0 35%;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .lwalid {
+        padding: 10px;
+    }
+
+    .lwalid svg {
+        max-width: 800px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .lwalid {
+        padding: 5px;
+    }
+
+    .form-container {
+        width: 95%;
+    }
+
+    .player-form {
+        padding: 15px;
+    }
 }
 
 .player-form {
     background: #1a1a1a;
-    padding: 30px;
+    padding: 20px;
     border-radius: 10px;
 }
 
@@ -29,7 +86,7 @@
 
 .input-group input,
 .input-group select {
-    width: 100%;
+    width: 90%;
     padding: 12px;
     border: 1px solid #333;
     border-radius: 5px;
@@ -255,7 +312,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #urlInputContainer input {
-    width: 100%;
+    width: 93%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -263,4 +320,38 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #fileInputContainer, #urlInputContainer {
     margin-top: 5px;
+}
+
+.substitutes {
+    width: 100%;
+    padding: 20px 0;
+    margin: 0;
+}
+
+.subs-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.subs-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .substitutes {
+        padding: 10px 0;
+    }
+
+    .subs-container {
+        padding: 0 10px;
+    }
+
+    .subs-row {
+        gap: 10px;
+    }
 }

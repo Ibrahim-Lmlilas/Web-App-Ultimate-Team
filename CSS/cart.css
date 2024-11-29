@@ -9,16 +9,16 @@ image:hover {
 }
 
 .substitutes {
-    margin-top: -75px;
-    margin-bottom: 10%;
+    width: 100%;
+    padding: 20px 0;
+    margin: 0;
 }
 
-
-
-
 .subs-container {
-    padding: 20px;
-    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
 .subs-row {
@@ -140,15 +140,20 @@ image:hover {
 /* ------------------------------------ */
 .card {
     width: 200px;
-    height: 225px;
+    height: 275px;
     position: relative;
-    background-image: url('../img/carta-removebg-preview.png');
+    background-image: url('../img/badge_gold.webp');
     background-size: cover;
     background-position: center;
-    padding: 15px;
+    margin: 0;
 }
 
-
+@media screen and (max-width: 480px) {
+    .card {
+        width: 160px;
+        height: 220px;
+    }
+}
 
 .rating-position {
     margin-bottom: 10px;
@@ -330,4 +335,19 @@ svg image:hover {
 /* Khass ga3 l3anasir ikono pointer-events: none */
 .card * {
     pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .substitutes {
+        padding: 10px 0;
+    }
+
+    .subs-container {
+        padding: 0 10px;
+    }
+
+    .subs-row {
+        gap: 10px;
+    }
 }
