@@ -587,19 +587,27 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Positions trouvées:', positionImages.length);
 
     positionImages.forEach(position => {
-        position.style.cursor = 'pointer';
-        
         position.addEventListener('click', function() {
             const playersList = document.createElement('div');
             playersList.className = 'players-modal';
             
+            // Filtrer les joueurs qui ne sont pas déjà sur le terrain
+            const usedPlayers = Array.from(positionImages)
+                .map(img => img.getAttribute('data-player-name'))
+                .filter(name => name);
+                
+            const availablePlayers = savedPlayers.filter(player => 
+                !usedPlayers.includes(player.name)
+            );
+
             let playersHTML = `
                 <div class="modal-content">
                     <span class="close-modal">&times;</span>
                     <div class="players-grid">
             `;
             
-            savedPlayers.forEach(player => {
+            // Utiliser availablePlayers au lieu de savedPlayers
+            availablePlayers.forEach(player => {
                 // Définir les stats en fonction de la position
                 let statsHTML = '';
                 if (player.position === 'GK') {
@@ -682,11 +690,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 playersList.remove();
             };
             
-            // Gérer la sélection d'un joueur
+            // Mise à jour de la gestion du clic sur une carte
             playersList.querySelectorAll('.player-card').forEach(card => {
                 card.onclick = function() {
                     const selectedPlayer = savedPlayers.find(p => p.name === card.dataset.playerId);
                     position.setAttribute('href', selectedPlayer.photo);
+                    // Stocker le nom du joueur sélectionné sur l'élément
+                    position.setAttribute('data-player-name', selectedPlayer.name);
                     playersList.remove();
                 };
             });
@@ -802,6 +812,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Réinitialiser le formulaire
         this.reset();
+    });
+
+    // Ajouter un bouton de réinitialisation sur chaque position
+    positionImages.forEach(position => {
+        position.addEventListener('contextmenu', function(e) {
+            e.preventDefault(); // Empêcher le menu contextuel par défaut
+            
+            // Réinitialiser l'image à la carte vide
+            position.setAttribute('href', 'img/CARTAXXX-removebg-preview.png');
+            // Supprimer la référence au joueur
+            position.removeAttribute('data-player-name');
+        });
     });
 });
 
