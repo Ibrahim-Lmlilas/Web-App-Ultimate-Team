@@ -701,6 +701,75 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
             });
         });
+        
+        // Ajouter les événements hover
+        position.addEventListener('mouseenter', function(e) {
+            const playerName = this.getAttribute('data-player-name');
+            if (!playerName) return; // Si aucun joueur n'est assigné, ne rien faire
+            
+            // Trouver les données du joueur
+            const player = savedPlayers.find(p => p.name === playerName);
+            if (!player) return;
+            
+            // Créer la carte d'info
+            const infoCard = document.createElement('div');
+            infoCard.className = 'player-hover-info';
+            
+            // Générer le HTML des stats en fonction du type de joueur
+            let statsHTML = '';
+            if (player.position === 'GK') {
+                statsHTML = `
+                    <div class="hover-stats">
+                        <div>DIV: ${player.diving}</div>
+                        <div>HAN: ${player.handling}</div>
+                        <div>KIC: ${player.kicking}</div>
+                        <div>REF: ${player.reflexes}</div>
+                        <div>SPE: ${player.speed}</div>
+                        <div>POS: ${player.positioning}</div>
+                    </div>
+                `;
+            } else {
+                statsHTML = `
+                    <div class="hover-stats">
+                        <div>PAC: ${player.pace}</div>
+                        <div>SHO: ${player.shooting}</div>
+                        <div>PAS: ${player.passing}</div>
+                        <div>DRI: ${player.dribbling}</div>
+                        <div>DEF: ${player.defending}</div>
+                        <div>PHY: ${player.physical}</div>
+                    </div>
+                `;
+            }
+            
+            infoCard.innerHTML = `
+                <div class="hover-header">
+                    <span class="hover-rating">${player.rating}</span>
+                    <span class="hover-position">${player.position}</span>
+                    <span class="hover-name">${player.name}</span>
+                </div>
+                <div class="hover-flags">
+                    <img src="${player.flag}" alt="Nationality">
+                    <img src="${player.logo}" alt="Club">
+                </div>
+                ${statsHTML}
+            `;
+            
+            // Positionner la carte d'info près du curseur
+            const rect = this.getBoundingClientRect();
+            infoCard.style.position = 'fixed';
+            infoCard.style.left = `${rect.right + 10}px`;
+            infoCard.style.top = `${rect.top}px`;
+            
+            document.body.appendChild(infoCard);
+            this.infoCard = infoCard;
+        });
+        
+        position.addEventListener('mouseleave', function() {
+            if (this.infoCard) {
+                this.infoCard.remove();
+                this.infoCard = null;
+            }
+        });
     });
 
     const imageInputType = document.getElementById('imageInputType');
