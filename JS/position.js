@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Créer toutes les cartes nécessaires
             function createCard(x, y) {
                 const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-                image.setAttribute('href', 'img/CARTAXXX-removebg-preview.png');
+                image.setAttribute('href', 'img/');
                 image.setAttribute('x', x);
                 image.setAttribute('y', y);
                 image.setAttribute('width', '150');
@@ -704,43 +704,40 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Ajouter les événements hover
         position.addEventListener('mouseenter', function(e) {
+            if (this.infoCard) return;
+
             const playerName = this.getAttribute('data-player-name');
-            if (!playerName) return; // Si aucun joueur n'est assigné, ne rien faire
-            
-            // Trouver les données du joueur
-            const player = savedPlayers.find(p => p.name === playerName);
+            if (!playerName) return;
+
+            // Trouver le joueur dans les données
+            const player = playersData.players.find(p => p.name === playerName);
             if (!player) return;
-            
-            // Créer la carte d'info
+
             const infoCard = document.createElement('div');
             infoCard.className = 'player-hover-info';
             
-            // Générer le HTML des stats en fonction du type de joueur
+            // Créer le contenu de l'info-bulle
             let statsHTML = '';
             if (player.position === 'GK') {
                 statsHTML = `
-                    <div class="hover-stats">
-                        <div>DIV: ${player.diving}</div>
-                        <div>HAN: ${player.handling}</div>
-                        <div>KIC: ${player.kicking}</div>
-                        <div>REF: ${player.reflexes}</div>
-                        <div>SPE: ${player.speed}</div>
-                        <div>POS: ${player.positioning}</div>
-                    </div>
+                    <div>DIV: ${player.diving}</div>
+                    <div>HAN: ${player.handling}</div>
+                    <div>KIC: ${player.kicking}</div>
+                    <div>REF: ${player.reflexes}</div>
+                    <div>SPE: ${player.speed}</div>
+                    <div>POS: ${player.positioning}</div>
                 `;
             } else {
                 statsHTML = `
-                    <div class="hover-stats">
-                        <div>PAC: ${player.pace}</div>
-                        <div>SHO: ${player.shooting}</div>
-                        <div>PAS: ${player.passing}</div>
-                        <div>DRI: ${player.dribbling}</div>
-                        <div>DEF: ${player.defending}</div>
-                        <div>PHY: ${player.physical}</div>
-                    </div>
+                    <div>PAC: ${player.pace}</div>
+                    <div>SHO: ${player.shooting}</div>
+                    <div>PAS: ${player.passing}</div>
+                    <div>DRI: ${player.dribbling}</div>
+                    <div>DEF: ${player.defending}</div>
+                    <div>PHY: ${player.physical}</div>
                 `;
             }
-            
+
             infoCard.innerHTML = `
                 <div class="hover-header">
                     <span class="hover-rating">${player.rating}</span>
@@ -748,26 +745,79 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span class="hover-name">${player.name}</span>
                 </div>
                 <div class="hover-flags">
-                    <img src="${player.flag}" alt="Nationality">
+                    <img src="${player.flag}" alt="Flag">
                     <img src="${player.logo}" alt="Club">
                 </div>
-                ${statsHTML}
+                <div class="hover-stats">
+                    ${statsHTML}
+                </div>
+                <div class="hover-actions">
+                    <button class="edit-btn">Éditer</button>
+                    <button class="delete-btn">Supprimer</button>
+                </div>
             `;
-            
-            // Positionner la carte d'info près du curseur
+
+            // Positionner l'info-bulle
             const rect = this.getBoundingClientRect();
-            infoCard.style.position = 'fixed';
             infoCard.style.left = `${rect.right + 10}px`;
             infoCard.style.top = `${rect.top}px`;
-            
+
             document.body.appendChild(infoCard);
             this.infoCard = infoCard;
+
+            // Ajouter le gestionnaire d'événements pour le bouton d'édition
+            const editBtn = infoCard.querySelector('.edit-btn');
+            editBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openEditForm(player);
+                infoCard.remove();
+            });
+
+            // Ajouter le gestionnaire d'événements pour le bouton de suppression
+            const deleteBtn = infoCard.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                // Réinitialiser l'image à la carte vide directement
+                position.setAttribute('href', 'img/badge_gold.webp');
+                // Supprimer la référence au joueur
+                position.removeAttribute('data-player-name');
+
+                // Afficher un message de succès
+                const toast = document.createElement('div');
+                toast.className = 'toast-notification';
+                toast.textContent = 'Joueur supprimé avec succès';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2000);
+
+                // Fermer l'info-bulle
+                infoCard.remove();
+            });
+
+            // Ajouter mouseenter sur l'info-bulle pour la garder visible
+            infoCard.addEventListener('mouseenter', () => {
+                clearTimeout(this.leaveTimeout);
+            });
+
+            // Ajouter mouseleave sur l'info-bulle
+            infoCard.addEventListener('mouseleave', (e) => {
+                if (!this.contains(e.relatedTarget)) {
+                    this.leaveTimeout = setTimeout(() => {
+                        infoCard.remove();
+                        this.infoCard = null;
+                    }, 100);
+                }
+            });
         });
         
-        position.addEventListener('mouseleave', function() {
-            if (this.infoCard) {
-                this.infoCard.remove();
-                this.infoCard = null;
+        position.addEventListener('mouseleave', function(e) {
+            if (this.infoCard && !e.relatedTarget?.closest('.player-hover-info')) {
+                this.leaveTimeout = setTimeout(() => {
+                    if (this.infoCard) {
+                        this.infoCard.remove();
+                        this.infoCard = null;
+                    }
+                }, 100);
             }
         });
     });
@@ -894,6 +944,14 @@ document.addEventListener('DOMContentLoaded', function() {
             position.removeAttribute('data-player-name');
         });
     });
+
+    // Ajouter un gestionnaire d'événements global pour s'assurer que les info-bulles sont supprimées
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.player-hover-info') && !e.target.closest('svg image')) {
+            const infoCards = document.querySelectorAll('.player-hover-info');
+            infoCards.forEach(card => card.remove());
+        }
+    });
 });
 
 // Fonction pour créer la modal de sélection de joueur
@@ -914,4 +972,127 @@ function createPlayerSelectionModal() {
 // Fonction pour créer une carte de joueur
 function createPlayerCard(player) {
     // ... code existant ...
+}
+
+// Ajouter cette fonction pour gérer l'édition
+function openEditForm(player) {
+    const editModal = document.createElement('div');
+    editModal.className = 'edit-modal';
+    
+    let statsHTML = '';
+    if (player.position === 'GK') {
+        statsHTML = `
+            <div class="stats-section">
+                <h3>Statistiques du Gardien</h3>
+                <div class="stats-grid">
+                    <div class="input-group">
+                        <label for="editDiving">DIV (Plongeon)</label>
+                        <input type="number" id="editDiving" value="${player.diving}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editHandling">HAN (Prise de balle)</label>
+                        <input type="number" id="editHandling" value="${player.handling}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editKicking">KIC (Dégagement)</label>
+                        <input type="number" id="editKicking" value="${player.kicking}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editReflexes">REF (Réflexes)</label>
+                        <input type="number" id="editReflexes" value="${player.reflexes}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editSpeed">SPE (Vitesse)</label>
+                        <input type="number" id="editSpeed" value="${player.speed}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editPositioning">POS (Placement)</label>
+                        <input type="number" id="editPositioning" value="${player.positioning}" min="1" max="99">
+                    </div>
+                </div>
+            </div>
+        `;
+    } else {
+        statsHTML = `
+            <div class="stats-section">
+                <h3>Statistiques du Joueur</h3>
+                <div class="stats-grid">
+                    <div class="input-group">
+                        <label for="editPace">PAC (Vitesse)</label>
+                        <input type="number" id="editPace" value="${player.pace}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editShooting">SHO (Tir)</label>
+                        <input type="number" id="editShooting" value="${player.shooting}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editPassing">PAS (Passe)</label>
+                        <input type="number" id="editPassing" value="${player.passing}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editDribbling">DRI (Dribble)</label>
+                        <input type="number" id="editDribbling" value="${player.dribbling}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editDefending">DEF (Défense)</label>
+                        <input type="number" id="editDefending" value="${player.defending}" min="1" max="99">
+                    </div>
+                    <div class="input-group">
+                        <label for="editPhysical">PHY (Physique)</label>
+                        <input type="number" id="editPhysical" value="${player.physical}" min="1" max="99">
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    editModal.innerHTML = `
+        <div class="modal-content">
+            <h2>Modifier les statistiques de ${player.name}</h2>
+            <form class="edit-form">
+                ${statsHTML}
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    `;
+
+    document.body.appendChild(editModal);
+
+    // Gérer la soumission
+    const form = editModal.querySelector('form');
+    form.onsubmit = (e) => {
+        e.preventDefault();
+        
+        // Mettre à jour les stats
+        if (player.position === 'GK') {
+            player.diving = parseInt(document.getElementById('editDiving').value);
+            player.handling = parseInt(document.getElementById('editHandling').value);
+            player.kicking = parseInt(document.getElementById('editKicking').value);
+            player.reflexes = parseInt(document.getElementById('editReflexes').value);
+            player.speed = parseInt(document.getElementById('editSpeed').value);
+            player.positioning = parseInt(document.getElementById('editPositioning').value);
+        } else {
+            player.pace = parseInt(document.getElementById('editPace').value);
+            player.shooting = parseInt(document.getElementById('editShooting').value);
+            player.passing = parseInt(document.getElementById('editPassing').value);
+            player.dribbling = parseInt(document.getElementById('editDribbling').value);
+            player.defending = parseInt(document.getElementById('editDefending').value);
+            player.physical = parseInt(document.getElementById('editPhysical').value);
+        }
+
+        // Mettre à jour le localStorage
+        localStorage.setItem('players', JSON.stringify(playersData.players));
+
+        // Afficher un message de succès
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = 'Statistiques mises à jour avec succès';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2000);
+
+        // Fermer la modal
+        editModal.remove();
+    };
 }
