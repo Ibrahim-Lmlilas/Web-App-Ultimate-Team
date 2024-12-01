@@ -591,12 +591,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const playersList = document.createElement('div');
             playersList.className = 'players-modal';
             
+            // Déterminer la position actuelle basée sur l'emplacement de l'image dans le SVG
+            let currentPosition;
+            const y = parseInt(this.getAttribute('y'));
+            if (y >= 480) {
+                currentPosition = 'GK';
+            } else if (y >= 300) {
+                currentPosition = ['CB', 'LB', 'RB'];
+            } else if (y >= 140) {
+                currentPosition = ['CM', 'CDM'];
+            } else {
+                currentPosition = ['ST', 'LW', 'RW','ATT'];
+            }
+
+            // Filtrer les joueurs par position
+            const filteredPlayers = savedPlayers.filter(player => {
+                if (Array.isArray(currentPosition)) {
+                    return currentPosition.includes(player.position);
+                }
+                return player.position === currentPosition;
+            });
+
             // Filtrer les joueurs qui ne sont pas déjà sur le terrain
             const usedPlayers = Array.from(positionImages)
                 .map(img => img.getAttribute('data-player-name'))
                 .filter(name => name);
                 
-            const availablePlayers = savedPlayers.filter(player => 
+            const availablePlayers = filteredPlayers.filter(player => 
                 !usedPlayers.includes(player.name)
             );
 
