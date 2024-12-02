@@ -541,8 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Convertir les positions en tableau pour faciliter l'animation
-        const allPositions = [
-            positions.goalkeeper,
+        const allPositions = [  
             ...positions.defenders,
             ...positions.midfielders,
             ...positions.attackers
@@ -552,8 +551,8 @@ document.addEventListener('DOMContentLoaded', function() {
         existingCards.forEach((card, index) => {
             if (allPositions[index]) {
                 // Ajouter une animation aléatoire légèrement différente pour chaque carte
-                const delay = Math.random() * 0.2;
-                card.style.transition = `all 0.5s ease-in-out ${delay}s`;
+                const delay = Math.random() * 0;
+                card.style.transition = "0.3s";
                 
                 // Animer vers la nouvelle position
                 card.setAttribute('x', allPositions[index].x);
@@ -843,19 +842,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const imageInputType = document.getElementById('imageInputType');
-    const fileInputContainer = document.getElementById('fileInputContainer');
-    const urlInputContainer = document.getElementById('urlInputContainer');
-
-    imageInputType.addEventListener('change', function() {
-        if (this.value === 'file') {
-            fileInputContainer.style.display = 'block';
-            urlInputContainer.style.display = 'none';
-        } else {
-            fileInputContainer.style.display = 'none';
-            urlInputContainer.style.display = 'block';
-        }
-    });
+  
 
     // Modifier la partie du code qui gère la soumission du formulaire
     document.querySelector('.player-form').addEventListener('submit', function(e) {
@@ -990,10 +977,7 @@ function createPlayerSelectionModal() {
     return modal;
 }
 
-// Fonction pour créer une carte de joueur
-function createPlayerCard(player) {
-    // ... code existant ...
-}
+
 
 // Ajouter cette fonction pour gérer l'édition
 function openEditForm(player) {
