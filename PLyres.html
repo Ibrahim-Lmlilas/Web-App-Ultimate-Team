@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Cards</title>
     <style>
+      /* Kat3ti style l page kamla, b background color, font, w katkhali cards ykono mratbin b flexbox */
         body {
             background: #1a1a1a;
             font-family: 'Arial', sans-serif;
@@ -14,7 +15,7 @@
             padding: 40px;
             justify-content: center;
         }
-
+        /* Kat3ti style l cards, b width, height, w background image. clip-path kat3ti l card hadak l shape l mkhass. */
         .card {
             width: 200px;
             height: 275px;
@@ -27,7 +28,7 @@
         }
 
       
-
+        /* Style dial rating w position */
         .rating-position {
            position: relative;
            left: 15px;
@@ -51,7 +52,7 @@
             display: flex;
             justify-content: space-around;
         }
-
+        /* Style dial flag w club logo */
         .flag {
           position: relative;
             top: 183px;
@@ -67,7 +68,7 @@
             right: 10px;
             top: 175px;
         }
-
+        /* Style dial player image w name */
         .player-img {
             width: 80%;
             height: auto;
@@ -86,7 +87,7 @@
             bottom:  60px;
             text-transform: uppercase;
         }
-
+        /* Style dial stats */
         .stats {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -539,18 +540,19 @@
   
         ;
 
-        // After the playersData declaration, add this to save to localStorage
+        //  Enregistrement f localStoragee
         localStorage.setItem('players', JSON.stringify(playersData.players));
 
-        // Récupérer tous les joueurs (existants + nouveaux) du localStorage
+        //  Récupération des données
         const allPlayers = JSON.parse(localStorage.getItem('players')) || playersData.players;
         
-        // Remplacer playersData.players.forEach par allPlayers.forEach
+        // katcréer les cartes:
         allPlayers.forEach(player => {
+          // 1. Création dial div jdida
             const card = document.createElement('div');
             card.className = 'card';
             
-            // Définir les stats en fonction de la position
+              // 2. Verification dial position
             let statsHTML = '';
             if (player.position === 'GK') {
                 statsHTML = `
@@ -596,6 +598,7 @@
                 `;
             }
 
+            // 3. Insertion dial HTML
             card.innerHTML = `
                 <div class="top-section">
                     <div class="rating-position">
@@ -614,6 +617,7 @@
                     ${statsHTML}
                 </div>
             `;
+            // 5. Ajout l page
             document.body.appendChild(card);
         });
     </script>

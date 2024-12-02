@@ -28,7 +28,7 @@
 
 
 
-
+      <!-- kayn SVG kbir li kaymtel terrain dial football, w fih positions dial players (4-3-3 formation par défaut). -->
       <section  style="margin-top: 70px; margin-bottom: 70px; margin-left: 15px;" class="lwalid" >
 
         <div>
@@ -80,7 +80,7 @@
         <form class="player-form">
             
             <div class="input-group">
-
+                <!-- Formation selector (4-5-1, 4-4-2, 3-5-2) -->
                 <select id="formation">
                     <option value="4-3-3">4-5-1</option>
                     <option value="4-4-2">4-4-2</option>
@@ -90,11 +90,13 @@
             </div>
 
             <div class="input-group">
+                <!-- Smiya dial player -->
                 <label for="playerName">Nom du joueur</label>
                 <input type="text" id="playerName" required>
             </div>
     
             <div class="input-group">
+                <!-- Upload dial image (soit b file upload wla URL) -->
                 <label for="playerImage">Image du joueur</label>
                 <select id="imageInputType">
                     <option value="file">Télécharger une image</option>
@@ -111,6 +113,7 @@
             </div>
     
             <div class="input-group">
+                <!-- Nationalité -->
                 <label for="nationality">Nationalité</label>
                 <select id="nationality" required>
                     <option value="">Sélectionner une nationalité</option>
@@ -125,32 +128,37 @@
     
             
             <div class="input-group">
+                <!-- Club -->
                 <label for="club">Club</label>
                 <select id="club" required>
                     <option value="">Sélectionner un club</option>
-                    <option value="RCA">Raja Club Athletic</option>
-                    <option value="WAC">Wydad Athletic Club</option>
-                    <option value="RSB">Renaissance Sportive de Berkane</option>
-                    <option value="FUS">FUS de Rabat</option>
+                    <option value="LFC">Liverpool</option>
+                    <option value="PSV">PSV</option>
+                    <option value="PSG">Paris Saint-Germain</option>
                 </select>
             </div>
     
             <div class="input-group">
+                <!-- Rating -->
                 <label for="rating">Note globale</label>
                 <input type="number" id="rating" min="1" max="99" required>
             </div>
     
             <div class="input-group">
+                <!-- Position -->
                 <label for="position">Position</label>
                 <select id="position" required>
                     <option value="">Sélectionner une position</option>
                     <option value="GK">Gardien de but</option>
-                    <option value="DEF">Défenseur</option>
-                    <option value="MID">Milieu</option>
-                    <option value="ATT">Attaquant</option>
+                    <option value="CB">Défenseur</option>
+                    <option value="CM">Milieu</option>
+                    <option value="ST">Attaquant</option>
                 </select>
             </div>
-    
+
+
+            <!-- Stats dial player (kaytbedlo 7sab position: soit player normal wla goalkeeper) -->
+<!-- Bghiti nbdaw b chi function mo3ayana bach ncher7ha lik b detail? -->
             <div class="input-group stats-fields player-stats" style="display: none;">
                 <label>Statistiques du joueur</label>
                 <div class="stats-grid">
@@ -223,23 +231,7 @@
 
 
 
-<script src="JS/nav.js"></script>
+<script src="JS/form.js"></script>
 <script src="JS/position.js"></script>
-<script>
-    document.getElementById('position').addEventListener('change', function() {
-        const playerStats = document.querySelector('.player-stats');
-        const goalkeeperStats = document.querySelector('.goalkeeper-stats');
-        
-        if (this.value === 'GK') {
-            playerStats.style.display = 'none';
-            goalkeeperStats.style.display = 'block';
-        } else if (this.value !== '') {
-            playerStats.style.display = 'block';
-            goalkeeperStats.style.display = 'none';
-        } else {
-            playerStats.style.display = 'none';
-            goalkeeperStats.style.display = 'none';
-        }
-    });
-    </script></body>
+</body>
 </html>

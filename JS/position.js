@@ -1,4 +1,5 @@
-const formationPositions = {
+const formationPositions = {  
+//hiya object li kay7tafed b les positions dyal kol formation f terrain. Kayn 3 formations: 
     '4-3-3': {
         attackers: [
             {x: 660, y: 80},   // Attaquant droit
@@ -482,128 +483,139 @@ const playersData = {
       
 ;
 
-// Au début du fichier, récupérer les joueurs du localStorage
+//savedPlayers: kayjbed les joueurs li t7afdo f localStorage 
 const savedPlayers = JSON.parse(localStorage.getItem('players')) || [];
 
+// DOMContentLoaded: event listener li kaytsena 7ta yt7mel HTML kamlo. Mnin kayloadi
 document.addEventListener('DOMContentLoaded', function() {
-    const formationSelect = document.getElementById('formation');
-    const svg = document.querySelector('svg');
-    
-    function updateFormation(formation) {
-        const positions = formationPositions[formation];
-        if (!positions) return;
 
-        let existingCards = svg.querySelectorAll('image');
-        
-        // Si c'est la première fois, créer les cartes
+    // formationSelect: kayjbed l-element select li fih formations (4-3-3, 4-4-2, etc)
+    const formationSelect = document.getElementById('formation');
+    // svg: kayjbed l-terrain li ghadi nrsmo fih players
+    const svg = document.querySelector('svg');
+  //---------------------------------------------------------------------------------------  
+
+
+    function updateFormation(formation) {
+        // Khed l-formation li khtar l-user (4-3-3, 4-4-2, etc)
+        const positions = formationPositions[formation];
+        // Tjbed positions dyal had formation mn formationPositions li kyna f star 1
+        if (!positions) return;
+        // Tplacer players f positions s7i7a f terrain
+        let existingCards = svg.querySelectorAll('image');     
+//---------------------------------------------------   ----------------------------------------
+
+
+        // Kan checkyiw wach l-terrain khawi (makaynch fih 7ta player)
         if (existingCards.length === 0) {
-            // Créer toutes les cartes nécessaires
             function createCard(x, y) {
+                // Hna kancrééiw element image jdid f SVG (terrain)
                 const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
-                image.setAttribute('href', 'img/');
-                image.setAttribute('x', x);
-                image.setAttribute('y', y);
-                image.setAttribute('width', '150');
-                image.setAttribute('height', '175');
-                // Ajouter une classe pour l'animation
-                image.style.opacity = '0';
+                
+                // Hna kan configiriw l'image:
+                image.setAttribute('href', 'img/'); // Hna fin kayn l'image li ghadi tban mli mazal makhtarnach player
+                image.setAttribute('x', x);// Hna fin ghadi tkon l'image mn jiht limin/lisr
+                image.setAttribute('y', y);// Hna fin ghadi tkon l'image mn jiht lfo9/lt7t
+                image.setAttribute('width', '150');     
+                image.setAttribute('height', '175');                    
+                // Kan returniw had l'image bach nsta3mloha f updateFormation
                 return image;
             }
 
-            // Gardien
+            // Ila khawi:
+            // Tzid gardien f position dyalo
             svg.appendChild(createCard(positions.goalkeeper.x, positions.goalkeeper.y));
 
-            // Défenseurs
+            // Tzid defenders f positions dyalhom
             positions.defenders.forEach(pos => {
                 svg.appendChild(createCard(pos.x, pos.y));
             });
 
-            // Milieux
+            // Tzid milieux f positions dyalhom
             positions.midfielders.forEach(pos => {
                 svg.appendChild(createCard(pos.x, pos.y));
             });
 
-            // Attaquants
+            // Tzid attaquants f positions dyalhom
             positions.attackers.forEach(pos => {
                 svg.appendChild(createCard(pos.x, pos.y));
-            });
-
-            // Récupérer toutes les cartes créées
-            existingCards = svg.querySelectorAll('image');
-            
-            // Animation d'apparition
-            setTimeout(() => {
-                existingCards.forEach(card => {
-                    card.style.opacity = '1';
-                    card.style.transition = 'opacity 0.5s ease-in-out';
-                });
-            }, 100);
+            }); 
+          
         }
+//------------------------------------------------------------------------------------------
 
-        // Convertir les positions en tableau pour faciliter l'animation
+        /// Kanjm3o ga3 positions (difa3 + milieu + lhjoum) f array wa7ed
         const allPositions = [  
             ...positions.defenders,
             ...positions.midfielders,
             ...positions.attackers
         ];
 
-        // Animer chaque carte vers sa nouvelle position
+        // Kan7erko kol card l position jdida dyalha f terrain
         existingCards.forEach((card, index) => {
             if (allPositions[index]) {
-                // Ajouter une animation aléatoire légèrement différente pour chaque carte
                 const delay = Math.random() * 0;
-                card.style.transition = "0.3s";
-                
-                // Animer vers la nouvelle position
+                card.style.transition = "0.35s";      
+                // Kan7to l-card f position jdida (x,y)
                 card.setAttribute('x', allPositions[index].x);
                 card.setAttribute('y', allPositions[index].y);
             }
         });
     }
+    //----------------------------------------------------------------------------------
 
-    // Écouter les changements de formation
+   // Kantsanaw l-user ibedel formation f select box
     formationSelect.addEventListener('change', function() {
-        // Ajouter une classe pour désactiver temporairement le hover pendant l'animation
+         // Kan7iydou hover effect mo2aqatan (bach maybanch hover mli players kay t7erko)
         svg.classList.add('transitioning');
-        
+            // Kanbedlo l-formation 7sab dakchi li khtar l-user
         updateFormation(this.value);
         
-        // Réactiver le hover après l'animation
+        // Mn be3d (0.8 seconde)
+        // Kan3awdo nredou hover effect
         setTimeout(() => {
             svg.classList.remove('transitioning');
-        }, 800);
+        }, 400);
     });
 
-    // Initialiser avec la formation par défaut
-    updateFormation(formationSelect.value);
+        // Kan initialisew b formation li kayna par défaut f select
+        updateFormation(formationSelect.value);
+//------------------------------------------------------------------------------------------
 
-    // Code existant pour charger les cartes dans .subs-row
-    
-    // Sélectionner toutes les images dans le SVG
-    const positionImages = document.querySelectorAll('svg image');
-    
-    // Déboguer pour vérifier si les images sont trouvées
-    console.log('Positions trouvées:', positionImages.length);
+        // Kan selectiw ga3 images (players) li kaynin f terrain
+        const positionImages = document.querySelectorAll('svg image');
 
-    positionImages.forEach(position => {
-        position.addEventListener('click', function() {
-            const playersList = document.createElement('div');
-            playersList.className = 'players-modal';
+        // Kan affichichiw f console 3adad dyal positions li l9ina
+        console.log('Positions trouvées:', positionImages.length);
+
+        // Kandiro event listener l kol position (image) f terrain
+        positionImages.forEach(position => {
             
-            // Déterminer la position actuelle basée sur l'emplacement de l'image dans le SVG
+            // Mli user kiclick 3la chi position:
+            position.addEventListener('click', function() {
+                // Kan créeyiw div jdid bach ndiro fih modal
+                const playersList = document.createElement('div');
+                playersList.className = 'players-modal';
+
+
+     //------------------------------------------------------------------------------------------
+            
+            // Kan7dedo position dyal player 7sab blasto f terrain
             let currentPosition;
             const y = parseInt(this.getAttribute('y'));
+
+            // Kan7dedo type dyal player 7sab blasto f terrain (y coordinate)
             if (y >= 480) {
-                currentPosition = 'GK';
+                currentPosition = 'GK';  // Gardien
             } else if (y >= 300) {
-                currentPosition = ['CB', 'LB', 'RB'];
+                currentPosition = ['CB', 'LB', 'RB'];  // Difa3
             } else if (y >= 140) {
-                currentPosition = ['CM', 'CDM'];
+                currentPosition = ['CM', 'CDM'];  // Milieu
             } else {
-                currentPosition = ['ST', 'LW', 'RW','ATT'];
+                currentPosition = ['ST', 'LW', 'RW','ATT'];  // Lhjoum
             }
 
-            // Filtrer les joueurs par position
+            // Kan filtriw players 7sab position dyalhom
             const filteredPlayers = savedPlayers.filter(player => {
                 if (Array.isArray(currentPosition)) {
                     return currentPosition.includes(player.position);
@@ -611,24 +623,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 return player.position === currentPosition;
             });
 
-            // Filtrer les joueurs qui ne sont pas déjà sur le terrain
-            const usedPlayers = Array.from(positionImages)
-                .map(img => img.getAttribute('data-player-name'))
-                .filter(name => name);
-                
-            const availablePlayers = filteredPlayers.filter(player => 
-                !usedPlayers.includes(player.name)
-            );
+            //---------------------------------------------------------------------------------------------
 
-            let playersHTML = `
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <div class="players-grid">
-            `;
+                // Kanjbdo players li déjà kaynin f terrain
+                const usedPlayers = Array.from(positionImages)
+                    .map(img => img.getAttribute('data-player-name'))
+                    .filter(name => name);
+                    
+                // Kan7iydo players li déja kaynin f terrain mn lista
+                const availablePlayers = filteredPlayers.filter(player => 
+                    !usedPlayers.includes(player.name)
+                );
+
+                // Kanbdaw nbniw HTML dyal modal
+                let playersHTML = `
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <div class="players-grid">
+                `;
             
-            // Utiliser availablePlayers au lieu de savedPlayers
+           // Kandoro 3la kol player li disponible
             availablePlayers.forEach(player => {
-                // Définir les stats en fonction de la position
+                // Kan7dedo stats li ghadi nwriw 7sab position dyal player
                 let statsHTML = '';
                 if (player.position === 'GK') {
                     statsHTML = `
@@ -674,6 +690,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     `;
                 }
 
+                // Kanzido card dyal player l HTML dyal modal
                 playersHTML += `
                     <div class="player-card" data-player-id="${player.name}">
                         <div class="top-section">
@@ -696,49 +713,62 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             });
             
+            // Kansdo HTML dyal modal w kan affichichiwh
             playersHTML += `
                     </div>
                 </div>
             `;
-            
+
+            // Kan7to HTML f modal
             playersList.innerHTML = playersHTML;
+
+            // Kanzido modal l page
             document.body.appendChild(playersList);
-            
-            // Gérer la fermeture de la modal
+
+            // Kan handliw click 3la bouton X bach nsedo modal
             const closeBtn = playersList.querySelector('.close-modal');
             closeBtn.onclick = function() {
-                playersList.remove();
+                playersList.remove();  // Kan7iydo modal mn page
             };
             
-            // Mise à jour de la gestion du clic sur une carte
+            // Kan handliw click 3la card dyal player
             playersList.querySelectorAll('.player-card').forEach(card => {
                 card.onclick = function() {
+                     // Kanjbdo player li selected mn data
                     const selectedPlayer = savedPlayers.find(p => p.name === card.dataset.playerId);
+                    // Kanbedlo image f terrain b photo dyal player
                     position.setAttribute('href', selectedPlayer.photo);
-                    // Stocker le nom du joueur sélectionné sur l'élément
+                     // Kan7tafdo b smiya dyal player li selected
                     position.setAttribute('data-player-name', selectedPlayer.name);
+                    // Kansedo modal
                     playersList.remove();
                 };
             });
         });
-        
-        // Ajouter les événements hover
-        position.addEventListener('mouseenter', function(e) {
-            if (this.infoCard) return;
+        //------------------------------------------------------------------------------------------
 
+
+        // Kan handliw hover 3la player f terrain
+        position.addEventListener('mouseenter', function(e) {
+            // Ila kayna déjà info card, ma ndiro walou
+            if (this.infoCard) return;  // Ila makaynch player, ma ndiro walou
+
+             // Kanjbdo smiya dyal player
             const playerName = this.getAttribute('data-player-name');
             if (!playerName) return;
 
-            // Trouver le joueur dans les données
+           // Kanjbdo player mn data
             const player = playersData.players.find(p => p.name === playerName);
             if (!player) return;
 
+            // Kan créeyiw info card
             const infoCard = document.createElement('div');
             infoCard.className = 'player-hover-info';
             
-            // Créer le contenu de l'info-bulle
+            // Kan7dedo stats li ghadi nwriw 7sab position
             let statsHTML = '';
             if (player.position === 'GK') {
+                // Stats dyal gardien
                 statsHTML = `
                     <div>DIV: ${player.diving}</div>
                     <div>HAN: ${player.handling}</div>
@@ -748,6 +778,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div>POS: ${player.positioning}</div>
                 `;
             } else {
+                // Stats dyal player 3adi
                 statsHTML = `
                     <div>PAC: ${player.pace}</div>
                     <div>SHO: ${player.shooting}</div>
@@ -757,7 +788,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div>PHY: ${player.physical}</div>
                 `;
             }
-
+                // Kanbniw HTML dyal info card
             infoCard.innerHTML = `
                 <div class="hover-header">
                     <span class="hover-rating">${player.rating}</span>
@@ -777,51 +808,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
 
-            // Positionner l'info-bulle
+            // Kan7dedo position dyal info card li f hovar
             const rect = this.getBoundingClientRect();
-            infoCard.style.left = `${rect.right + 10}px`;
-            infoCard.style.top = `${rect.top}px`;
+            infoCard.style.left = `${rect.right + 10}px`; // 10px mn limin dyal player
+            infoCard.style.top = `${rect.top}px`;         // Nfs l-height dyal player
 
+            // Kanzido info card l page
             document.body.appendChild(infoCard);
             this.infoCard = infoCard;
 
-            // Ajouter le gestionnaire d'événements pour le bouton d'édition
+            // Kan handliw click 3la button 'Éditer'
             const editBtn = infoCard.querySelector('.edit-btn');
             editBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openEditForm(player);
-                infoCard.remove();
+                e.stopPropagation(); // Bach ma yt9adch click l elements li t7t
+                openEditForm(player); // Kan7lo form dyal modification
+                infoCard.remove();  // Kan7iydo info card
             });
 
-            // Ajouter le gestionnaire d'événements pour le bouton de suppression
+          // Kan handliw click 3la button 'Supprimer'
             const deleteBtn = infoCard.querySelector('.delete-btn');
             deleteBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 
-                // Réinitialiser l'image à la carte vide directement
-                position.setAttribute('href', 'img/badge_gold.webp');
-                // Supprimer la référence au joueur
-                position.removeAttribute('data-player-name');
+                // Kan7iydo player mn terrain
+                position.setAttribute('href', 'img/badge_gold.webp');  // Kan7to image par défaut
+                position.removeAttribute('data-player-name'); // Kan7iydo smiya dyal player
 
-                // Afficher un message de succès
+                // Kanwriw message dyal succès
                 const toast = document.createElement('div');
                 toast.className = 'toast-notification';
-                toast.textContent = 'Joueur supprimé avec succès';
+                toast.textContent = 'Joueur supprime avec succes';
                 document.body.appendChild(toast);
-                setTimeout(() => toast.remove(), 2000);
-
-                // Fermer l'info-bulle
+                setTimeout(() => toast.remove(), 2000);  // Kan7iydo message mn be3d 2 seconds
+                
+                // Kansedo info card
                 infoCard.remove();
             });
+            //------------------------------------------------------------------------------------------
 
-            // Ajouter mouseenter sur l'info-bulle pour la garder visible
+            // Kan handliw hover 3la info card
             infoCard.addEventListener('mouseenter', () => {
+                // Kan7bso timeout bach info card tb9a visible
                 clearTimeout(this.leaveTimeout);
             });
 
-            // Ajouter mouseleave sur l'info-bulle
+            // Kan handliw mouseleave mn info card
             infoCard.addEventListener('mouseleave', (e) => {
+                 // Kanchofo wach l-souris mazal f player
                 if (!this.contains(e.relatedTarget)) {
+                     // Kan7to timeout bach n7iydo info card mn be3d 100ms
                     this.leaveTimeout = setTimeout(() => {
                         infoCard.remove();
                         this.infoCard = null;
@@ -829,9 +864,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        
+
+        // Kan handliw mouseleave mn player
         position.addEventListener('mouseleave', function(e) {
+                // Kanchofo wach l-souris kharjat mn player w info card
             if (this.infoCard && !e.relatedTarget?.closest('.player-hover-info')) {
+                // Kan7to timeout bach n7iydo info card mn be3d 100ms
                 this.leaveTimeout = setTimeout(() => {
                     if (this.infoCard) {
                         this.infoCard.remove();
@@ -841,131 +879,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
+    //------------------------------------------------------------------------------------------
   
 
-    // Modifier la partie du code qui gère la soumission du formulaire
-    document.querySelector('.player-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Créer un nouvel objet joueur avec les données du formulaire
-        const newPlayer = {
-            name: document.getElementById('playerName').value,
-            position: document.getElementById('position').value,
-            nationality: document.getElementById('nationality').value,
-            flag: `https://cdn.sofifa.net/flags/${document.getElementById('nationality').value.toLowerCase()}.png`,
-            club: document.getElementById('club').value,
-            logo: `clubs/${document.getElementById('club').value}.png`,
-            rating: document.getElementById('rating').value,
-        };
-
-        // Ajouter les stats en fonction de la position
-        if (newPlayer.position === 'GK') {
-            newPlayer.diving = document.getElementById('diving').value;
-            newPlayer.handling = document.getElementById('handling').value;
-            newPlayer.kicking = document.getElementById('kicking').value;
-            newPlayer.reflexes = document.getElementById('reflexes').value;
-            newPlayer.speed = document.getElementById('speed').value;
-            newPlayer.positioning = document.getElementById('positioning').value;
-        } else {
-            newPlayer.pace = document.getElementById('pace').value;
-            newPlayer.shooting = document.getElementById('shooting').value;
-            newPlayer.passing = document.getElementById('passing').value;
-            newPlayer.dribbling = document.getElementById('dribbling').value;
-            newPlayer.defending = document.getElementById('defending').value;
-            newPlayer.physical = document.getElementById('physical').value;
-        }
-
-        // Gérer l'image du joueur
-        if (document.getElementById('imageInputType').value === 'file') {
-            const file = document.getElementById('playerImage').files[0];
-            newPlayer.photo = URL.createObjectURL(file);
-        } else {
-            newPlayer.photo = document.getElementById('playerImageUrl').value;
-        }
-
-        // Ajouter le nouveau joueur au tableau existant
-        playersData.players.push(newPlayer);
-
-        // Sauvegarder dans localStorage
-        localStorage.setItem('players', JSON.stringify(playersData.players));
-
-        // Créer et ajouter la nouvelle carte
-        const card = document.createElement('div');
-        card.className = 'card';
-        
-        let statsHTML = '';
-        if (newPlayer.position === 'GK') {
-            statsHTML = `
-                <div class="stat"><span>${newPlayer.diving}</span></div>
-                <div class="stat"><span>${newPlayer.handling}</span></div>
-                <div class="stat"><span>${newPlayer.kicking}</span></div>
-                <div class="stat"><span>${newPlayer.reflexes}</span></div>
-                <div class="stat"><span>${newPlayer.speed}</span></div>
-                <div class="stat"><span>${newPlayer.positioning}</span></div>
-            `;
-        } else {
-            statsHTML = `
-                <div class="stat"><span>${newPlayer.pace}</span></div>
-                <div class="stat"><span>${newPlayer.shooting}</span></div>
-                <div class="stat"><span>${newPlayer.passing}</span></div>
-                <div class="stat"><span>${newPlayer.dribbling}</span></div>
-                <div class="stat"><span>${newPlayer.defending}</span></div>
-                <div class="stat"><span>${newPlayer.physical}</span></div>
-            `;
-        }
-
-        card.innerHTML = `
-            <div class="top-section">
-                <div class="rating-position">
-                    <div class="rating">${newPlayer.rating}</div>
-                    <div class="position">${newPlayer.position}</div>
-                </div>
-                <div class="nationality">
-                    <img src="${newPlayer.flag}" class="flag" alt="Flag">
-                    <img src="${newPlayer.logo}" class="club-logo" alt="Club">
-                </div>
-            </div>
-            <img src="${newPlayer.photo}" class="player-img" alt="${newPlayer.name}">
-            <div class="player-name">${newPlayer.name}</div>
-            <div class="statt"><p>PAC  SHO PAS DRI DEF PHY</p></div>
-            <div class="stats">
-                ${statsHTML}
-            </div>
-        `;
-
-        // Ajouter la carte à la page PLyres.html
-        document.body.appendChild(card);
-
-        // Réinitialiser le formulaire
-        this.reset();
-    });
-
-    // Ajouter un bouton de réinitialisation sur chaque position
-    positionImages.forEach(position => {
-        position.addEventListener('contextmenu', function(e) {
-            e.preventDefault(); // Empêcher le menu contextuel par défaut
-            
-            // Réinitialiser l'image à la carte vide
-            position.setAttribute('href', 'img/CARTAXXX-removebg-preview.png');
-            // Supprimer la référence au joueur
-            position.removeAttribute('data-player-name');
-        });
-    });
-
-    // Ajouter un gestionnaire d'événements global pour s'assurer que les info-bulles sont supprimées
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.player-hover-info') && !e.target.closest('svg image')) {
-            const infoCards = document.querySelectorAll('.player-hover-info');
-            infoCards.forEach(card => card.remove());
-        }
-    });
+  
 });
 
-// Fonction pour créer la modal de sélection de joueur
+// Function li katjib l3ab l tiran
 function createPlayerSelectionModal() {
-    const modal = document.createElement('div');
+     // Kan créeyiw div jdid (modal)
+    let modal = document.createElement('div');
     modal.className = 'player-selection-modal';
+      // Kanbniw HTML dyal modal
     modal.innerHTML = `
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -973,44 +898,63 @@ function createPlayerSelectionModal() {
             <div class="players-grid"></div>
         </div>
     `;
+    // Kanzido modal l page
     document.body.appendChild(modal);
+   // Kan returniw modal bach nsta3mloha mn be3d
     return modal;
 }
 
 
 
-// Ajouter cette fonction pour gérer l'édition
+// Function bach n3dlo stats dyal player
 function openEditForm(player) {
-    const editModal = document.createElement('div');
+     // Kan créeyiw div jdid (modal)
+    const editModal = document.createElement('div');    
     editModal.className = 'edit-modal';
     
+    // Kan7dedo stats li ghadi nwriw 7sab position
     let statsHTML = '';
     if (player.position === 'GK') {
+         // Form dyal gardien
         statsHTML = `
             <div class="stats-section">
                 <h3>Statistiques du Gardien</h3>
                 <div class="stats-grid">
+                   <div class="input-group">
+
+                        <label for="editDiving">rating</label>
+                        <p>rating</p>
+                        <input type="number" id="editrating" value="${player.rating}" min="1" max="99">
+                    </div>
+                    
+                  
                     <div class="input-group">
+                        <p>DIV (Plongeon)</p>
                         <label for="editDiving">DIV (Plongeon)</label>
                         <input type="number" id="editDiving" value="${player.diving}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>HAN (Prise de balle)</p>
                         <label for="editHandling">HAN (Prise de balle)</label>
                         <input type="number" id="editHandling" value="${player.handling}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>KIC (Dégagement)</p>
                         <label for="editKicking">KIC (Dégagement)</label>
                         <input type="number" id="editKicking" value="${player.kicking}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>REF (Réflexes)</p>
                         <label for="editReflexes">REF (Réflexes)</label>
                         <input type="number" id="editReflexes" value="${player.reflexes}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>SPE (Vitesse)</p>
                         <label for="editSpeed">SPE (Vitesse)</label>
                         <input type="number" id="editSpeed" value="${player.speed}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>POS (Placement)</p>
                         <label for="editPositioning">POS (Placement)</label>
                         <input type="number" id="editPositioning" value="${player.positioning}" min="1" max="99">
                     </div>
@@ -1022,27 +966,39 @@ function openEditForm(player) {
             <div class="stats-section">
                 <h3>Statistiques du Joueur</h3>
                 <div class="stats-grid">
+                   <div class="input-group">
+                        <p>rating</p>
+                        <label for="editDiving">rating</label>
+                        <input type="number" id="editrating" value="${player.rating}" min="1" max="99">
+                    </div>
+                     
                     <div class="input-group">
+                            <p>PAC (Vitesse)</p>
                         <label for="editPace">PAC (Vitesse)</label>
                         <input type="number" id="editPace" value="${player.pace}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>SHO (Tir)</p>
                         <label for="editShooting">SHO (Tir)</label>
                         <input type="number" id="editShooting" value="${player.shooting}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                            <p>PAS (Passe)</p>
                         <label for="editPassing">PAS (Passe)</label>
                         <input type="number" id="editPassing" value="${player.passing}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>DRI (Dribble)</p>
                         <label for="editDribbling">DRI (Dribble)</label>
                         <input type="number" id="editDribbling" value="${player.dribbling}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>DEF (Défense)</p>
                         <label for="editDefending">DEF (Défense)</label>
                         <input type="number" id="editDefending" value="${player.defending}" min="1" max="99">
                     </div>
                     <div class="input-group">
+                        <p>PHY (Physique)</p>
                         <label for="editPhysical">PHY (Physique)</label>
                         <input type="number" id="editPhysical" value="${player.physical}" min="1" max="99">
                     </div>
@@ -1050,7 +1006,7 @@ function openEditForm(player) {
             </div>
         `;
     }
-
+    // Kanbniw HTML dyal modal
     editModal.innerHTML = `
         <div class="modal-content">
             <h2>Modifier les statistiques de ${player.name}</h2>
@@ -1062,15 +1018,15 @@ function openEditForm(player) {
             </form>
         </div>
     `;
-
+    // Kanzido modal l page
     document.body.appendChild(editModal);
 
-    // Gérer la soumission
+    // Kan updatiw stats 7sab position
     const form = editModal.querySelector('form');
     form.onsubmit = (e) => {
         e.preventDefault();
         
-        // Mettre à jour les stats
+        // Update stats dyal gardien
         if (player.position === 'GK') {
             player.diving = parseInt(document.getElementById('editDiving').value);
             player.handling = parseInt(document.getElementById('editHandling').value);
@@ -1078,26 +1034,29 @@ function openEditForm(player) {
             player.reflexes = parseInt(document.getElementById('editReflexes').value);
             player.speed = parseInt(document.getElementById('editSpeed').value);
             player.positioning = parseInt(document.getElementById('editPositioning').value);
+            player.rating = parseInt(document.getElementById('editrating').value);
         } else {
+             // Update stats dyal player 3adi
             player.pace = parseInt(document.getElementById('editPace').value);
             player.shooting = parseInt(document.getElementById('editShooting').value);
             player.passing = parseInt(document.getElementById('editPassing').value);
             player.dribbling = parseInt(document.getElementById('editDribbling').value);
             player.defending = parseInt(document.getElementById('editDefending').value);
             player.physical = parseInt(document.getElementById('editPhysical').value);
+            player.rating = parseInt(document.getElementById('editrating').value);
         }
 
-        // Mettre à jour le localStorage
+         // Kan7afdo f localStorage
         localStorage.setItem('players', JSON.stringify(playersData.players));
 
-        // Afficher un message de succès
+       // Kanwriw message dyal succès
         const toast = document.createElement('div');
         toast.className = 'toast-notification';
         toast.textContent = 'Statistiques mises à jour avec succès';
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), 2000);
 
-        // Fermer la modal
+        // Kansedo modal
         editModal.remove();
     };
 }
