@@ -1,353 +1,59 @@
 image {
-    cursor: pointer;
+    /* kay7wel l'cursor  l wahd l'pointer (l'id) mli katji fo9 l'image */
+    cursor:pointer; 
+    /* kay3tik wahd l'animation smooth */
     transition: transform 0.2s ease;
 }
 
 image:hover {
+    /* mli katdir hover dakci kytla3 */
     transform: translateY(-8px) ;
     
 }
 
-.substitutes {
-    width: 100%;
-    padding: 20px 0;
-    margin: 0;
-}
 
-.subs-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.subs-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.sub-card {
-    width: 200px;
-    height: 225px;
-    object-fit: contain;
-}
-
-/* Ajuster la taille des cartes dans la section des substituts */
-.subs-row .card {
-    width: 140px;
-    height: 175px;
-    position: relative;
-    background-image: url('../img/carta-removebg-preview.png');
-    background-size: cover;
-    background-position: center;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-    padding: 15px;
-}
-
-/* Ajuster la taille et le positionnement des éléments dans les cartes */
-.subs-row .card .rating-position {
-    position: relative;
-    left: 100px;
-
-}
-
-.subs-row .card .rating {
-    font-size: 10px;
-    color: #2b2b2b;
-}
-
-.subs-row .card .position {
-    font-size: 15px;
-    color: #2b2b2b;
-    margin-left: 5px;
-}
-
-.subs-row .card .player-img {
-    width: 60%;
-    height: auto;
-    position: relative;
-    bottom: 103px;
-    left: 80px;
-    display: block;
-}
-
-.subs-row .card .player-name {
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: #2f3104;
-    position: relative;
-    bottom: 95px;
-    text-transform: uppercase;
-}
-
-.subs-row .card .nationality {
-    display: flex;
-    flex-direction: column;
-    margin-left: 42px;
-    margin-top: 8px;
-    gap: 10px;
-}
-
-.subs-row .card .flag {
-    width: 20px;
-    height: 15px;
-    object-fit: cover;
-}
-
-.subs-row .card .club-logo {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-}
-
-.subs-row .card .stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
-    padding: 0 25px;
-}
-
-.subs-row .card .stat {
-    display: flex;
-    position: relative;
-    gap: 1px;
-    bottom: 81px;
-    left: 5px;
-    color: #2f3104;
-    font-size: 15px;
-}
-
-.created-cards {
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.created-cards h2 {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 20px;
-}
-
-.cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-/* ------------------------------------ */
-.card {
-    width: 200px;
-    height: 275px;
-    position: relative;
-    background-image: url('../img/badge_gold.webp');
-    background-size: cover;
-    background-position: center;
-    margin: 0;
-}
-
-@media screen and (max-width: 480px) {
-    .card {
-        width: 160px;
-        height: 220px;
-    }
-}
-
+/* --------------carta li f navida---------------------- */
+/* Styling dial rating w position (r9m w position dial player) */
 .rating-position {
-    margin-bottom: 10px;
-    margin-left: 20px;
-    gap: 5px;
+    margin-bottom: 10px;           /* kay5li msafa mn lt7t dial 10px */
+    margin-left: 20px;            /* kay5li msafa mn lisr dial 20px */
+    gap: 5px;                     /* lmsafa mabin rating w position */
 }
 
-.rating {
-    font-size: 30px;
-    font-weight: bold;
-    color: #2b2b2b;
-}
-
+/* Styling dial position (GK, ST, CB...) */
 .position {
-    font-size: 22px;
-    color: #2b2b2b;
-    margin-left: 5px;
+    font-size: 22px;              /* 7jm l7rof dial position */
+    color: #2b2b2b;              /* lon l7rof (gris fga7mi) */
+    margin-left: 5px;            /* msafa mn lisr */
 }
 
+/* Styling dial nationality (3lam w logo dial club) */
 .nationality {
-    display: flex;
-    flex-direction: column;
-    margin-left: 57px;
-    margin-top: 12px;
-    gap: 10px;
+    display: flex; /* bach dir les elements f ligne */
+    flex-direction: column; /* kay7t les elements wa7d fo9 la5or */
+    margin-left: 57px;  /* msafa mn lisr */
+    margin-top: 12px;   /* msafa mn lfo9 */
+    gap: 10px;   /* lmsafa mabin l3lam w logo dial club */
 }
 
-.flag {
-    width: 45px;
-    height: 30px;
-    object-fit: cover;
-}
-
-.club-logo {
-    width: 45px;
-    height: 35px;
-    object-fit: contain;
-}
-
-.player-img {
-    width: 65%;
-    height: auto;
-    position: relative;
-    bottom:  156px;
-    left: 95px;
-    display: block;
-}
-
-.player-name {
-    text-align: center;
-    font-size: 19px;
-    font-weight: bold;
-    color: #2f3104;
-    position: relative;
-    bottom:  155px;
-    text-transform: uppercase;
-}
-
+/* Styling dial stats (PAC, SHO, PAS, ...) */
 .stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px; 
-    padding: 0 35px;
+    display: grid;  /* kn5dmo b grid bach nrtbo les stats */
+    grid-template-columns: repeat(2, 1fr);/* kay9sm l'grid l 2 columns mtsawin */
+    gap: 8px;/* lmsafa mabin les stats */
+    padding: 0 35px; /* padding mn limn o lisr */
 }
 
-.stat {
-    display: flex;
-    position: relative;
-    gap: 1px;
-    bottom: 145px;
-    left: 25px;
-    color: #2f3104;
-    font-size: 20px;
-}
-
-.stat span:first-child {
-    text-transform: uppercase;
-}
-
-/* Styles pour la modal */
-.player-selection-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
+/* Styling dial modal (nafida li katban mli kt5tar player) */
 .modal-content {
-    background-color: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    height: 80vh;
-    overflow-y: auto;
+    background-color: #1a1a1a; /* lon l5lfiya (k7l m3tm) */
+    width: 90%;   /* l3rd dyalha 90% mn lpage */
+    height: 80vh;/* tol dyalha 80% mn viewport height */
 }
 
-.close-modal {
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-}
 
-.players-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 cartes par ligne */
-    gap: 20px;
-    padding: 20px;
-}
-
-/* Style pour le défilement vertical */
-.modal-content::-webkit-scrollbar {
-    width: 8px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-    background: #2a2a2a;
-    border-radius: 4px;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background: #555;
-    border-radius: 4px;
-}
-
-.modal-content::-webkit-scrollbar-thumb:hover {
-    background: #666;
-}
-
-/* Ajuster la taille des cartes dans la modal */
-.players-grid .card {
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto;
-}
-
-/* Style pour les positions cliquables */
-svg image {
-    transition: opacity 0.3s;
-}
-
+/* Animation dial image mli ktji fo9ha b souris */
 svg image:hover {
-    opacity: 0.8;
+    opacity: 0.8; /* transparency dial image mli ktji fo9ha */
 }
 
-.pitch-card {
-    background-image: url('../img/carta-removebg-preview.png');
-    background-size: cover;
-    background-position: center;
-    width: 200px;
-    height: 225px;
-    position: absolute;
-    z-index: 100;
-    pointer-events: none;
-}
-
-.pitch-card * {
-    pointer-events: none;
-}
-
-/* Style l cards f terrain */
-.card {
-    width: 200px;
-    height: 225px;
-    position: relative;
-    background-image: url('../img/carta-removebg-preview.png');
-    background-size: cover;
-    background-position: center;
-    padding: 15px;
-}
-
-/* Khass ga3 l3anasir ikono pointer-events: none */
-.card * {
-    pointer-events: none;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-    .substitutes {
-        padding: 10px 0;
-    }
-
-    .subs-container {
-        padding: 0 10px;
-    }
-
-    .subs-row {
-        gap: 10px;
-    }
-}

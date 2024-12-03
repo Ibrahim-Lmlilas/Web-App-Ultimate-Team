@@ -1,35 +1,26 @@
+/* font smyto "Poppins" */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-  body{
-    min-height: 100vh;
-    margin: 0;
-    font-family: Poppins;
-    color: #1E1E1E;
-    background-color: #CDCDCD;
-    background-image:
-    /* Kay3ml grid vertical: khotot b space 150px binathom */
-    repeating-linear-gradient(
-        to right, transparent 0 150px, #0001 150px 151px
-    ),
-    /* Bhal l'layer 1 walakin horizontal */
-    repeating-linear-gradient(
-        to bottom, transparent 0 150px, #0001 150px 151px
-    ),
-    /* Khawi, walakin ymkn lik tzid fih chi background image */
-    linear-gradient(to right,#00ffbbcc, #0d342cea),
-    url();
-} 
+body {
+  min-height: 100vh;/* Lpage ghadi takhod 100% mn height dyal screen */
+  margin: 0;   /* Kay7iyed ay space mn berra l-page */
+  font-family: Poppins; /* Font li ghadi ytkhdm f page kamla */
+  color: #1E1E1E;/* Lon l-ktaba (9rib l-k7el) */  
+  /* Hna gradient dyalna: */
+  background: linear-gradient(to right, #00ffbb, #054232, #041714);
+}
   
   .navbar {
-    display: flex;
+    display: flex;/* Kaykhelli l-elements ytretbo b flexible way */
     justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
+    align-items: center;/* Kay7et l-elements f center verticalement */
+    padding: 1rem 2rem; /* 1rem=16px */
     background-color: #1a1a1a;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', ;
   }
   
   .logo img {
+    /* Hna logo li ghadi takhod 50px mn height */
     height: 50px;
   }
   
