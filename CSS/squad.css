@@ -1,104 +1,106 @@
-.lwalid{
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    margin: 0;
-    padding: 0;
-}
-
-.lwalid > div:first-child {
-    width: 90%;
-    display: flex;
-    justify-content: center;
+.lwalid {
+    display: flex;/* Katkhalik tdir les éléments f wa7ed ligne */
+    flex-direction: column; /* Katkhali les éléments y-aligniw verticalement */
+    width: 90%; /* Kat7ded l3erd dial container (90% men l'parent) */
 }
 
 .lwalid svg {
-    width: 90%;
-    height: auto;
-    max-height: 70vh;
+    width: 90%; /* L3erd dial svg ghadi yakhod 90% men l'container parent */
+    height: auto; /* L'height ghadi ttbedel automatiquement bach t7afed 3la l'aspect ratio */
+    max-height: 70vh; /* Maximum height li ymken lwsol liha (70% men viewport height) */
+    margin-left: 5%; /* Kandiro margin men liser bach ncentraw svg */
 }
 
 .form-container {
-    width: 90%;
-    max-width: 450px;
-    margin: 20px auto;
+    width: 90%;/* L3erd dial container ghadi yakhod 90% men l'parent */
+    max-width: 450px;  /* Maximum l3erd ma ymkench yfout 450px */
+    margin: 20px auto;/* Auto margin f jiht limin o lisar kay3ni centering horizontal */
 }
 
+
+/* -----------------------------respo dyal ml3ab o form------------------------------ */
+
 @media screen and (min-width: 1024px) {
+    /* Styling l container principal */
     .lwalid {
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 20px;
-        gap: 20px;
+        flex-direction: row; /* Elements ghadi ymchiw horizontalement */
+        align-items: flex-start; /* Elements ghadi ybdaw men lfo9 */
+        padding: 20px; /* Padding 20px men ga3 jihat */
+        gap: 20px; /* Space 20px bin les éléments */
     }
 
-    .lwalid > div:first-child {
-        flex: 1;
-        max-width: 65%;
+    /* Styling l first div (li fih SVG) */
+    .lwalid > div:first-child { /* > kay3ni direct child, first-child kay3ni l'element lwel */
+        flex: 1; /* Kay3ni ghadi yakhod remaining space koulo */
+        max-width: 65%; /* Maximum width 65% men l'parent */
     }
 
+    /* Styling l form container */
     .form-container {
-        flex: 0 0 35%;
-        margin: 0;
+        flex: 0 0 35%; /* 35% men l3erd, ma ytbedlch size (0 grow, 0 shrink) */
+        margin: 0; /* No margin */
     }
 }
 
 @media screen and (max-width: 1023px) {
     .lwalid {
-        padding: 10px;
+        padding: 10px; /* N9esso padding l 10px */
     }
 
     .lwalid svg {
-        max-width: 800px;
+        max-width: 800px; /* SVG maximum width 800px */
     }
 }
 
 @media screen and (max-width: 768px) {
     .lwalid {
-        padding: 5px;
+        padding: 5px; /* N9esso padding l 5px */
     }
 
     .form-container {
-        width: 95%;
+        width: 95%; /* Form width 95% men l'parent */
     }
 
     .player-form {
-        padding: 15px;
+        padding: 15px; /* Padding dial form 15px */
     }
 }
+/* --------------------------------------------------------------------------------------------- */
+
+
+/* -----------------------------styling dial form------------------------------ */
 
 .player-form {
     background: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 20px; /* Padding dial form 20px */
+    border-radius: 10px; /* Border radius dial form 10px */
 }
 
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Margin dial input group 20px */
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #fff;
-    font-size: 14px;
+    margin-bottom: 8px; /* Margin dial label 8px */
+    color: #fff; /* Color dial label white */
+    font-size: 14px; /* Font size dial label 14px */
 }
 
-.input-group input,
+.input-group input, 
 .input-group select {
-    width: 90%;
-    padding: 12px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    background: #2a2a2a;
-    color: #fff;
-    font-size: 14px;
+    width: 90%; /* Width dial input w select 90% */ 
+    padding: 12px; /* Padding dial input w select 12px */   
+    border: 1px solid #333; /* Border dial input w select 1px solid gris */
+    border-radius: 5px; /* Border radius dial input w select 5px */
+    background: #2a2a2a; /* Background dial input w select gris foncé */
+    color: #fff; /* Color dial input w select white */
+    font-size: 14px; /* Font size dial input w select 14px */
 }
 
 .input-group input:focus,
 .input-group select:focus {
-    outline: none;
-    border-color: #1aa870;
+    outline: none; /* Outline dial input w select none */
+    border-color: #1aa870; /* Border color dial input w select green */
 }
 
 .input-group input[type="file"] {
@@ -106,79 +108,68 @@
 }
 
 .submit-btn {
-    width: 100%;
-    padding: 14px;
-    background: #1aa870;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
+    width: 100%; /* Width dial submit button 100% */
+    padding: 14px; /* Padding dial submit button 14px */
+    background: #22865e; /* Background dial submit button green */
+    color: white; /* Color dial submit button white */
+    border: none; /* Border dial submit button none */
+    border-radius: 5px; /* Border radius dial submit button 5px */
+    font-size: 16px; /* Font size dial submit button 16px */
+    font-weight: bold; /* Font weight dial submit button bold */
+    cursor: pointer; /* Cursor dial submit button pointer */
+    transition: background 0.3s ease; /* Transition dial submit button background 0.3s ease */
 }
 
 .submit-btn:hover {
-    background: #45a049;
+    background: #00674d; /* Background dial submit button green */
 }
 
-/* Style pour les options des selects */
 select option {
-    background: #2a2a2a;
-    color: #fff;
+    background: #2a2a2a; /* Background dial select option gris foncé */
+    color: #fff; /* Color dial select option white */
 }
-
-/* Retirer les flèches du input number */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
 
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.stats-grid div {
-    display: flex;
-    flex-direction: column;
+    display: grid; /* Display dial stats grid grid */
+    grid-template-columns: repeat(2, 1fr); /* Grid template columns dial stats grid 2 columns 1fr */
+    gap: 10px; /* Gap dial stats grid 10px */
+    margin-top: 10px; /* Margin top dial stats grid 10px */
 }
 
 .stats-grid input {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%; /* Width dial input 100% */
+    padding: 5px; /* Padding dial input 5px */
+    border: 1px solid #ccc; /* Border dial input 1px solid gris clair */
+    border-radius: 4px; /* Border radius dial input 4px */
 }
 
 .stats-grid label {
-    font-size: 0.9em;
-    margin-bottom: 3px;
+    font-size: 0.9em; /* Font size dial label 1em =16px   */
+    margin-bottom: 3px; /* Margin bottom dial label 3px */
 }
 
+
+/* -----------------------------styling dial modal------------------------------ */
 .players-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: fixed; /* Position dial modal fixed */
+    top: 0; /* Top dial modal 0 */
+    left: 0; /* Left dial modal 0 */
+    width: 100%; /* Width dial modal 100% */
+    height: 100%; /* Height dial modal 100% */
     background-color: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    z-index: 1000; /* Z-index dial modal 1000 */
+    display: flex; /* Display dial modal flex */
+    justify-content: center; /* Justify content dial modal center */
+    align-items: center; /* Align items dial modal center */
 }
 
 .modal-content {
     background-color: #1a1818;
-    padding: 40px;
-    border-radius: 10px;
-    max-width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
+    padding: 40px; /* Padding dial modal content 40px */
+    border-radius: 10px; /* Border radius dial modal content 10px */
+    max-width: 90%; /* Max width dial modal content 90% */
+    max-height: 90vh; /* Max height dial modal content 90vh */
+    overflow-y: auto; /* Overflow y dial modal content auto */
 }
 
 .players-grid {
