@@ -40,8 +40,70 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //------------------------------------------------------------------------------------------    
 
- // Kan handliw submit dyal form:
- document.querySelector('.player-form').addEventListener('submit', function(e) {
+// Kan zido had l-function li ghadi tcrééyi w taffichi modal:
+function showPlayerAddedModal(newPlayer) {
+    const modal = document.createElement('div');
+    modal.className = 'players-modal';
+    
+    // Kan7dedo stats li ghadi nwriw 7sab position
+    let statsHTML = '';
+    if (newPlayer.position === 'GK') {
+        statsHTML = `
+            <div class="stat"><span>${newPlayer.diving}</span></div>
+            <div class="stat"><span>${newPlayer.handling}</span></div>
+            <div class="stat"><span>${newPlayer.kicking}</span></div>
+            <div class="stat"><span>${newPlayer.reflexes}</span></div>
+            <div class="stat"><span>${newPlayer.speed}</span></div>
+            <div class="stat"><span>${newPlayer.positioning}</span></div>
+        `;
+    } else {
+        statsHTML = `
+            <div class="stat"><span>${newPlayer.pace}</span></div>
+            <div class="stat"><span>${newPlayer.shooting}</span></div>
+            <div class="stat"><span>${newPlayer.passing}</span></div>
+            <div class="stat"><span>${newPlayer.dribbling}</span></div>
+            <div class="stat"><span>${newPlayer.defending}</span></div>
+            <div class="stat"><span>${newPlayer.physical}</span></div>
+        `;
+    }
+
+    // Kanbniw HTML dial modal
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="players-grid">
+                <div class="player-card">
+                    <div class="top-section">
+                        <div class="rating-position">
+                            <div class="rating">${newPlayer.rating}</div>
+                            <div class="position">${newPlayer.position}</div>
+                        </div>
+                        <div class="nationality">
+                            <img src="${newPlayer.flag}" class="flag" alt="Flag">
+                            <img src="${newPlayer.logo}" class="club-logo" alt="Club">
+                        </div>
+                    </div>
+                    <img src="${newPlayer.photo}" class="player-img" alt="${newPlayer.name}">
+                    <div class="player-name">${newPlayer.name}</div>
+                    <div class="statt"><p>PAC SHO PAS DRI DEF PHY</p></div>
+                    <div class="stats">
+                        ${statsHTML}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Kanzido modal l page
+    document.body.appendChild(modal);
+
+    // Kan handliw click 3la button X
+    const closeBtn = modal.querySelector('.close-modal');
+    closeBtn.onclick = () => modal.remove();
+}
+
+// Kan modifiw l-event listener dial form submit:
+document.querySelector('.player-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
     // Créer un nouvel objet joueur avec les données du formulaire
@@ -85,53 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Sauvegarder dans localStorage
     localStorage.setItem('players', JSON.stringify(playersData.players));
-
-    // Kan créeyiw card dyal player:
-    const card = document.createElement('div');
-    card.className = 'card';
-    
-    let statsHTML = '';
-    if (newPlayer.position === 'GK') {
-        statsHTML = `
-            <div class="stat"><span>${newPlayer.diving}</span></div>
-            <div class="stat"><span>${newPlayer.handling}</span></div>
-            <div class="stat"><span>${newPlayer.kicking}</span></div>
-            <div class="stat"><span>${newPlayer.reflexes}</span></div>
-            <div class="stat"><span>${newPlayer.speed}</span></div>
-            <div class="stat"><span>${newPlayer.positioning}</span></div>
-        `;
-    } else {
-        statsHTML = `
-            <div class="stat"><span>${newPlayer.pace}</span></div>
-            <div class="stat"><span>${newPlayer.shooting}</span></div>
-            <div class="stat"><span>${newPlayer.passing}</span></div>
-            <div class="stat"><span>${newPlayer.dribbling}</span></div>
-            <div class="stat"><span>${newPlayer.defending}</span></div>
-            <div class="stat"><span>${newPlayer.physical}</span></div>
-        `;
-    }
-
-    card.innerHTML = `
-        <div class="top-section">
-            <div class="rating-position">
-                <div class="rating">${newPlayer.rating}</div>
-                <div class="position">${newPlayer.position}</div>
-            </div>
-            <div class="nationality">
-                <img src="${newPlayer.flag}" class="flag" alt="Flag">
-                <img src="${newPlayer.logo}" class="club-logo" alt="Club">
-            </div>
-        </div>
-        <img src="${newPlayer.photo}" class="player-img" alt="${newPlayer.name}">
-        <div class="player-name">${newPlayer.name}</div>
-        <div class="statt"><p>PAC  SHO PAS DRI DEF PHY</p></div>
-        <div class="stats">
-            ${statsHTML}
-        </div>
-    `;
-
-    // Kanzido card l page
-    document.body.appendChild(card);
 
     // Kan resetiw form (kan7iydo values li kteb user)
     this.reset();
