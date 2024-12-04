@@ -13,24 +13,159 @@ image:hover {
 
 
 /* --------------carta li f navida---------------------- */
-/* Styling dial rating w position (r9m w position dial player) */
+
+/* -----------------------------styling dial nafida------------------------------ */
+.players-modal {
+    position: fixed; /* Position dial modal fixed */
+    top: 0; /* Top dial modal 0 */
+    left: 0; /* Left dial modal 0 */
+    width: 100%; /* Width dial modal 100% */
+    height: 100%; /* Height dial modal 100% */
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000; /* Z-index dial modal 1000 */
+    display: flex; /* Display dial modal flex */
+    justify-content: center; /* Justify content dial modal center */
+    align-items: center; /* Align items dial modal center */
+}
+
+.modal-content {
+    background-color: #1a1818;
+    padding: 40px; /* Padding dial modal content 40px */
+    border-radius: 10px; /* Border radius dial modal content 10px */
+    max-width: 90%; /* Max width dial modal content 90% */
+    max-height: 90vh; /* Max height dial modal content 90vh */
+    overflow:scroll auto; 
+}
+
+.players-grid {
+    display: flex;/* Katkhdem b flexbox layout */
+    flex-wrap: wrap;/* Kaykhalih ynzel l line jdida ila ma b9ach l'place */
+    gap: 100px; /* Space bin les cards (100px f vertical w horizontal) */
+    padding: 30px; /* Space men lwast (30px men ga3 jihat) */
+    justify-content: center; /* Katcentri les cards horizontalement */
+}
+
+.player-card {
+    width: 200px; /* L3erd dial card */
+    height: 275px; /* Toul dial card */
+    position: relative; /* Bach n9dro npositioniw elements li dakhel card */
+    /* Styling dial background */
+    background-image: url('../img/badge_gold.webp'); /* Background image (gold badge) */
+    background-size: cover; /* Background image katgheti card kamla */
+    background-position: center; /* Background image katcentra */
+    padding: 15px; /* Space dakhel card */
+    cursor: pointer; /* Cursor kaywelli pointer fash ndozo 3la card */
+    transition: transform 0.2s;
+}
+
+.player-card:hover {
+    transform: scale(1.05);      /* Katkebber card b 5% (1.05 = 105%) */
+}
+
+/* Container dial rating w position */
 .rating-position {
-    margin-bottom: 10px;           /* kay5li msafa mn lt7t dial 10px */
-    margin-left: 20px;            /* kay5li msafa mn lisr dial 20px */
-    gap: 5px;                     /* lmsafa mabin rating w position */
+    position: relative; /* Positioning relative l parent */
+    right: -15px; 
+    top: 40px;
 }
-
-/* Styling dial position (GK, ST, CB...) */
+/* Style dial ra9m (rating) */
+.rating {
+    font-size: 30px;
+    font-weight: bold;
+    color: #573e08;
+}
+/* Style dial position */
 .position {
-    font-size: 22px;              /* 7jm l7rof dial position */
-    color: #2b2b2b;              /* lon l7rof (gris fga7mi) */
-    margin-left: 5px;            /* msafa mn lisr */
+    font-size: 15px;
+    color: #573e08;
+    position: relative;
+    bottom: 7px;
+    left: 7px;
 }
 
+/* Container dial nationality */    
+.nationality {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Style dial flag */
+.flag {
+    position: relative;
+    top: 157px;
+    width: 30px;
+    height: 20px;
+}
+
+/* Style dial club logo */
+.club-logo {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    left: 60px;
+    top: 125px;
+
+}
+
+/* Style dial player image */
+.player-img {
+    width: 80%;
+    height: auto;
+    position: relative;
+    bottom: 118px;
+    left: 25px;
+    display: block;
+}
+
+/* Style dial player name */
+.player-name {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2f3104;
+    position: relative;
+    bottom: 120px;
+    text-transform: uppercase;
+}
+
+
+
+/* Style dial stat */
+.stat {
+    position: relative;
+    bottom: 148px;
+    left: -12px;
+    font-weight: bolder;
+    color: #2f3104;
+    font-size: 14px;
+}
+
+/* Style dial stat title */
+.statt {
+    position: relative;
+    bottom: 135px;
+    left: 10px;
+    padding: 0 16px;
+    color: #2f3104;
+    font-size: 12px;
+}
+
+
+/* Style dial close modal */
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1001;
+}
 /* Styling dial nationality (3lam w logo dial club) */
 .nationality {
     display: flex; /* bach dir les elements f ligne */
-    flex-direction: column; /* kay7t les elements wa7d fo9 la5or */
+    flex-direction: column;       /* kay7t les elements wa7d fo9 la5or */
     margin-left: 57px;  /* msafa mn lisr */
     margin-top: 12px;   /* msafa mn lfo9 */
     gap: 10px;   /* lmsafa mabin l3lam w logo dial club */
@@ -38,10 +173,14 @@ image:hover {
 
 /* Styling dial stats (PAC, SHO, PAS, ...) */
 .stats {
-    display: grid;  /* kn5dmo b grid bach nrtbo les stats */
-    grid-template-columns: repeat(2, 1fr);/* kay9sm l'grid l 2 columns mtsawin */
-    gap: 8px;/* lmsafa mabin les stats */
+    display: grid; /* kn5dmo b grid bach nrtbo les stats */
+    gap: 8px; /* lmsafa mabin les stats */
     padding: 0 35px; /* padding mn limn o lisr */
+/* Container dial stats */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 0 40px;
+
 }
 
 /* Styling dial modal (nafida li katban mli kt5tar player) */
