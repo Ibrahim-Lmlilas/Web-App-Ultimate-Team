@@ -106,9 +106,38 @@ function showPlayerAddedModal(newPlayer) {
 document.querySelector('.player-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    // Créer un nouvel objet joueur avec les données du formulaire
+    // Validation smiya (code li kan)
+    const playerName = document.getElementById('playerName').value;
+    const nameRegex = /^[a-zA-Z\s]{2,25}$/;
+    
+    if (!nameRegex.test(playerName)) {
+        alert("L'smiya khasha tkon:\n- Ghir 7rof (bla ar9am wla caractères spéciaux)\n- Bin 2 w 25 caractères\n- Maximum espace wa7d bin lkalimat");
+        return;
+    }
+
+
+    // Kan checkyiw bch maykunch ktar mn espace wa7d
+    if (playerName.includes('  ')) {
+        alert("L'smiya maymknch tkon fiha ktar mn espace wa7d bin lkalimat");
+        return;
+    }
+
+    // Validation stats dial goalkeeper
+    if (document.getElementById('position').value === 'GK') {
+        const gkStats = ['diving', 'handling', 'kicking', 'reflexes', 'speed', 'positioning'];
+        
+        for (const stat of gkStats) {
+            const value = parseInt(document.getElementById(stat).value);
+            if (isNaN(value) || value < 1 || value > 99) {
+                alert(`Stats dial goalkeeper khasshom ykono bin 1 w 99.\nL'stat '${stat}' machi valid.`);
+                return;
+            }
+        }
+    }
+
+    // Kan kmlo b code l9dim
     const newPlayer = {
-        name: document.getElementById('playerName').value,
+        name: playerName,
         position: document.getElementById('position').value,
         nationality: document.getElementById('nationality').value,
         flag: `https://cdn.sofifa.net/flags/${document.getElementById('nationality').value.toLowerCase()}.png`,

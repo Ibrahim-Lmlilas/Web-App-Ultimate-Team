@@ -484,7 +484,7 @@ const playersData = {
 ;
 
 //savedPlayers: kayjbed les joueurs li t7afdo f localStorage 
-const savedPlayers = JSON.parse(localStorage.getItem('players')) || [];
+let savedPlayers = JSON.parse(localStorage.getItem('players')) || [];
 
 // DOMContentLoaded: event listener li kaytsena 7ta yt7mel HTML kamlo. Mnin kayloadi
 document.addEventListener('DOMContentLoaded', function() {
@@ -587,6 +587,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Kan affichichiw f console 3adad dyal positions li l9ina
         console.log('Positions trouvées:', positionImages.length);
+    
+
 
         // Kandiro event listener l kol position (image) f terrain
         positionImages.forEach(position => {
